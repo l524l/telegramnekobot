@@ -9,6 +9,15 @@ public class TelegramBotConfig {
     private String botToken;
     private String botUsername;
     private String botPath;
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
 
     public String getBotToken() {
         return botToken;
