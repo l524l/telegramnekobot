@@ -21,6 +21,7 @@ public class WebHookController {
 
     @RequestMapping(path = "/")
     public @ResponseBody Object getWebHooks(@RequestBody Update update){
-        return telegramWebHookBot.onWebhookUpdateReceived(update);
+        telegramWebHookBot.onWebhookUpdateReceived(update);
+        return "ok";
     }
 }
