@@ -15,8 +15,7 @@ public class WebHookController {
 
 
     @Autowired
-    public WebHookController(TelegramWebHookBot telegramWebHookBot) throws TelegramApiException {
-        this.telegramWebHookBot = telegramWebHookBot;
+    public WebHookController(TelegramWebHookBot telegramWebHookBot) throws TelegramApiException { this.telegramWebHookBot = telegramWebHookBot;
     }
 
     @RequestMapping(path = "/")

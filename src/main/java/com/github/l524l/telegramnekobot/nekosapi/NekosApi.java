@@ -3,6 +3,7 @@ package com.github.l524l.telegramnekobot.nekosapi;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.UrlResource;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -19,7 +20,7 @@ public class NekosApi {
     }
 
     public String execute(String category){
-        AtomicReference<NekoCategory> nekoCategory = null;
+        AtomicReference<NekoCategory> nekoCategory = new AtomicReference<>();
         categories.forEach((x) -> {
             if (x.getName().equals(category)) nekoCategory.set(x);
         });
