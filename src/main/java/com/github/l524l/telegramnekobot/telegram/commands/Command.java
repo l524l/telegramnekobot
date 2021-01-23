@@ -13,7 +13,7 @@ public abstract class Command extends BotCommand {
         this.required_role = required_role;
     }
 
-    public abstract BotApiMethod execute(Update update);
+    public abstract void execute(Update update);
 
     public UserRoles getRequiredRole(){
         return required_role;
