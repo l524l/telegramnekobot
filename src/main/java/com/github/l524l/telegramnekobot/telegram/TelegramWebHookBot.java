@@ -48,6 +48,14 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
         SendPhotoByURL sendPhoto = new SendPhotoByURL();
         sendPhoto.setChat_id(update.getMessage().getChatId().toString());
         sendPhoto.setPhoto("https://cdn.nekos.life/neko/neko_070.jpg");
+        SendPhoto sendPhoto1 = new SendPhoto();
+        sendPhoto1.setChatId(update.getMessage().getChatId().toString());
+        sendPhoto1.setPhoto(new InputFile("https://cdn.nekos.life/neko/neko_070.jpg"));
+        try {
+            execute(sendPhoto1);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
         return sendPhoto;
     }
 

@@ -17,7 +17,6 @@ public class ProgramSettings {
 
     public void setOwner(String owner) {
         ownerID = owner;
-        saveSettings();
     }
 
     public WorkMode getWorkMode() {
@@ -26,7 +25,6 @@ public class ProgramSettings {
 
     public void setWorkMode(WorkMode workMode) {
         this.workMode = workMode;
-        saveSettings();
     }
 
     public List<String> getAdminList() {
@@ -35,18 +33,15 @@ public class ProgramSettings {
 
     public void setAdminList(List<String> adminList) {
         this.adminList = adminList;
-        saveSettings();
     }
 
     public void addAdmin(String userId){
         if (adminList.contains(userId)){
             adminList.add(userId);
         }
-        saveSettings();
     }
     public void removeAdmin(String adminId){
         adminList.removeIf((x) -> x.equals(adminId));
-        saveSettings();
     }
 
     private boolean saveSettings(){
