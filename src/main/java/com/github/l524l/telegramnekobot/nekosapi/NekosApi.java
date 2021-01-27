@@ -3,7 +3,6 @@ package com.github.l524l.telegramnekobot.nekosapi;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.UrlResource;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -13,7 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class NekosApi {
     private final List<NekoCategory> categories;
-    private static final String NEKO_URL = "https://nekos.life/api/v2/img/";
+    private static final String NEKO_URL = "http://api.nekos.fun:8080/api/";
 
     public NekosApi(List<NekoCategory> categories) {
         this.categories = categories;
@@ -39,7 +38,7 @@ public class NekosApi {
             e.printStackTrace();
         }
 
-        return response.getUrl();
+        return response.getImage();
     }
 
     public List<NekoCategory> getCategories() {

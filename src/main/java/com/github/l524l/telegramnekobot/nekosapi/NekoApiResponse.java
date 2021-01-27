@@ -1,22 +1,22 @@
 package com.github.l524l.telegramnekobot.nekosapi;
 
 public class NekoApiResponse {
-    private String url;
-    private String message;
+    private String image;
+    private String error;
 
-    public String getUrl() {
-        return url;
+    public String getImage() {
+        return image;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public String getMessage() {
-        return message;
+    public String getError() {
+        return error;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setError(String error) {
+        this.error = error;
     }
 }
