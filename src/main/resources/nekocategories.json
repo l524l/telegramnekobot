@@ -1,40 +1,46 @@
 [{
-		"name": "avatar",
+		"name": "kiss",
 		"nsfw": false
 	}, {
-		"name": "eron",
+		"name": "lick",
 		"nsfw": false
 	}, {
-		"name": "fox",
+		"name": "hug",
 		"nsfw": false
 	}, {
-		"name": "goose",
+		"name": "baka",
 		"nsfw": false
 	}, {
-		"name": "holo",
+		"name": "cry",
 		"nsfw": false
 	}, {
-		"name": "kemonomimi",
+		"name": "poke",
 		"nsfw": false
 	}, {
-		"name": "lizard",
+		"name": "smug",
 		"nsfw": false
 	}, {
-		"name": "meow",
+		"name": "slap",
 		"nsfw": false
 	}, {
 		"name": "neko",
 		"nsfw": false
 	}, {
-		"name": "ngif",
+		"name": "tickle",
 		"nsfw": false
 	}, {
-		"name": "waifu",
+		"name": "pat",
 		"nsfw": false
 	}, {
-		"name": "woof",
+		"name": "laugh",
 		"nsfw": false
 	},{
+		"name": "feed",
+		"nsfw": false
+	}, {
+		"name": "cuddle",
+		"nsfw": false
+	}, {
 		"name": "tickle",
 		"nsfw": false
 	}, {
