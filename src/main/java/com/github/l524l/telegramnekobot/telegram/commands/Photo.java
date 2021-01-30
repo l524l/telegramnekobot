@@ -1,5 +1,6 @@
 package com.github.l524l.telegramnekobot.telegram.commands;
 
+import com.github.l524l.telegramnekobot.exceptions.BotException;
 import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
 import com.github.l524l.telegramnekobot.telegram.TelegramSender;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
@@ -12,18 +13,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
+@TheCommand(name = "photo",description = "Отправляет фото согласно категории",required_role = UserRoles.USER)
 public class Photo extends Command {
-    private static final String COMMAND = "photo";
-    private static final String DESCRIPTION = "Отправляет фото согласно категории";
-    private static final UserRoles REQUIRED_ROLE = UserRoles.USER;
-    private final NekosApi nekosApi;
+
+    @Autowired
+    private NekosApi nekosApi;
 
     @Autowired
     private TelegramSender telegramSender;
 
-    public Photo(NekosApi nekosApi) {
-        super(COMMAND, DESCRIPTION, REQUIRED_ROLE);
-        this.nekosApi = nekosApi;
+    public Photo() throws BotException {
+        super(Photo.class);
     }
 
     @Override
@@ -51,9 +51,5 @@ public class Photo extends Command {
         }catch (Throwable e){
             e.printStackTrace();
         }
-    }
-
-    public void setTelegramSender(TelegramSender telegramSender) {
-        this.telegramSender = telegramSender;
     }
 }

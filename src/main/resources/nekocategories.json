@@ -95,7 +95,7 @@
 		"name": "hentai",
 		"nsfw": true
 	}, {
-		"name": "hentaig",
+		"name": "wallpapers",
 		"nsfw": true
 	}, {
 		"name": "holoero",
@@ -152,7 +152,10 @@
 		"name": "yuri",
 		"nsfw": true
 	}, {
-		"name": "nsfw_neco_gif",
+		"name": "spank",
+		"nsfw": true
+	}, {
+		"name": "4k",
 		"nsfw": true
 	}
 ]
