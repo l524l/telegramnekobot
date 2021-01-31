@@ -1,10 +1,16 @@
 package com.github.l524l.telegramnekobot.telegram.commands;
 
 import com.github.l524l.telegramnekobot.exceptions.BotException;
+import com.github.l524l.telegramnekobot.telegram.TelegramSender;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+@Component
 public abstract class Command {
+    @Autowired
+    protected TelegramSender telegramSender;
     protected UserRoles required_role;
     protected String name;
     protected String description;

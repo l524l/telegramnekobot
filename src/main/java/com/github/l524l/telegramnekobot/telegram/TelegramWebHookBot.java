@@ -15,13 +15,13 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
     private final TelegramBotConfig botConfig;
     private final ProgramSettings settings;
     private final NekosApi nekosApi;
-    private final Photo photo;
+    private final CommandHandler commandHandler;
 
-    public TelegramWebHookBot(TelegramBotConfig botConfig, ProgramSettings settings, NekosApi nekosApi, Photo photo) {
+    public TelegramWebHookBot(TelegramBotConfig botConfig, ProgramSettings settings, NekosApi nekosApi, CommandHandler commandHandler) {
         this.botConfig = botConfig;
         this.settings = settings;
         this.nekosApi = nekosApi;
-        this.photo = photo;
+        this.commandHandler = commandHandler;
         try {
             if (!getWebhookInfo().getUrl().equals(botConfig.getBotPath())){
                 SetWebhook setWebhook = new SetWebhook(botConfig.getBotPath());
@@ -44,8 +44,9 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
+
         try {
-            photo.execute(update);
+            commandHandler.execute(update);
         }catch (Throwable e){
             e.printStackTrace();
         }

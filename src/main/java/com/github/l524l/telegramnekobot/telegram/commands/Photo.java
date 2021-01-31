@@ -12,15 +12,12 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-@Component
+@Component("photo")
 @TheCommand(name = "photo",description = "Отправляет фото согласно категории",required_role = UserRoles.USER)
 public class Photo extends Command {
 
     @Autowired
     private NekosApi nekosApi;
-
-    @Autowired
-    private TelegramSender telegramSender;
 
     public Photo() throws BotException {
         super(Photo.class);
