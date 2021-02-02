@@ -21,10 +21,10 @@ public abstract class Command {
             required_role = theCommand.required_role();
             name = theCommand.name();
             description = theCommand.description();
-        } else throw new BotException("Class " + command.getName() + " doesn't have annotation TheCommand");
+        } else throw new BotException("Class " + command.getName() + " doesn't have annotation TheCommand", 1);
     }
 
-    public abstract void execute(Update update);
+    public abstract void execute(Update update) throws BotException;
 
     public UserRoles getRequired_role() {
         return required_role;

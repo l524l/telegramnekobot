@@ -16,31 +16,31 @@ public class Categories extends Command {
 
     @Override
     public void execute(Update update) {
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(update.getMessage().getChatId().toString());
-        sendMessage.setText("```\n" +
-                "nsfw    | sfw\n" +
-                "---------------------\n"+
-                "4k      | neko\n" +
-                "gasm    | kiss\n" +
-                "cum     | lick\n" +
-                "gif     | hug\n" +
-                "lewd    | wallpapers\n" +
-                "anal    | tickle\n" +
-                "hentai  | baka\n" +
-                "lesbian | animalears\n" +
-                "blowjob | laugh\n" +
-                "holo    | feet\n" +
-                "pussy   | cuddle\n" +
-                "boobs   | pat\n" +
-                "        | feed\n" +
-                "        | foxgirl\n" +
-                "        | slap\n" +
-                "        | poke\n" +
-                "        | smug\n```"
-        );
-
-        sendMessage.setParseMode("MarkdownV2");
+        SendMessage sendMessage = SendMessage.
+                builder()
+                .chatId(update.getMessage().getChatId().toString())
+                .text(("```\n" +
+                    "nsfw    | sfw\n" +
+                    "---------------------\n"+
+                    "4k      | neko\n" +
+                    "gasm    | kiss\n" +
+                    "cum     | lick\n" +
+                    "gif     | hug\n" +
+                    "lewd    | wallpapers\n" +
+                    "anal    | tickle\n" +
+                    "hentai  | baka\n" +
+                    "lesbian | animalears\n" +
+                    "blowjob | laugh\n" +
+                    "holo    | feet\n" +
+                    "pussy   | cuddle\n" +
+                    "boobs   | pat\n" +
+                    "        | feed\n" +
+                    "        | foxgirl\n" +
+                    "        | slap\n" +
+                    "        | poke\n" +
+                    "        | smug\n```"))
+                .parseMode("MarkdownV2")
+                .build();
         try {
             telegramSender.execute(sendMessage);
         } catch (TelegramApiException e) {

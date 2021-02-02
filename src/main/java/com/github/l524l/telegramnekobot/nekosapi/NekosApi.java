@@ -18,27 +18,22 @@ public class NekosApi {
         this.categories = categories;
     }
 
-    public String execute(String category){
+    public URL execute(String category) throws NekosApiException {
         AtomicReference<NekoCategory> nekoCategory = new AtomicReference<>();
         categories.forEach((x) -> {
             if (x.getName().equals(category)) nekoCategory.set(x);
         });
-        NekoApiResponse response = null;
-        try {
+
+        if (nekoCategory.get() == null) throw new NekosApiException("Category doesn't exist", 101);
+
+            try {
             URL url = new URL(NEKO_URL + nekoCategory.get().getName());
             ObjectMapper objectMapper = new ObjectMapper();
-            response = objectMapper.readValue(url, NekoApiResponse.class);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
+            NekoApiResponse response = objectMapper.readValue(url, NekoApiResponse.class);
+            return response.getImage();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new NekosApiException("Fail conected to api", 100 ,e);
         }
-
-        return response.getImage();
     }
 
     public List<NekoCategory> getCategories() {

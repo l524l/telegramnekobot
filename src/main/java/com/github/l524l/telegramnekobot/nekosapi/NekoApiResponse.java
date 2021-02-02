@@ -1,14 +1,16 @@
 package com.github.l524l.telegramnekobot.nekosapi;
 
+import java.net.URL;
+
 public class NekoApiResponse {
-    private String image;
+    private URL image;
     private String error;
 
-    public String getImage() {
+    public URL getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(URL image) {
         this.image = image;
     }
 

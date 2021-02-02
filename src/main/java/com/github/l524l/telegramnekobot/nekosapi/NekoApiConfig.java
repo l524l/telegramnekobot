@@ -1,43 +1,31 @@
 package com.github.l524l.telegramnekobot.nekosapi;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.UrlResource;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
 public class NekoApiConfig {
+    private final Logger logger = LoggerFactory.getLogger(NekoApiConfig.class);
+
     @Bean
-    public NekosApi createNekoApi(){
+    public NekosApi createNekoApi() throws NekosApiException {
         ObjectMapper objectMapper = new ObjectMapper();
-        List<NekoCategory> list = null;
-        list = new ArrayList<>();
-        list.add(new NekoCategory("AS",true));
-        NekosApi nekosApi = null;
         try {
-            String s = objectMapper.writeValueAsString(list);
             ClassPathResource urlResource = new ClassPathResource("./nekocategories.json");
-            list = objectMapper.readValue(urlResource.getInputStream(), new TypeReference<List<NekoCategory>>(){});
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
+            List<NekoCategory> list = objectMapper.readValue(urlResource.getInputStream(), new TypeReference<List<NekoCategory>>() {});
+            logger.info("Loaded categories file");
+            return new NekosApi(list);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new NekosApiException("Fail loading categories file", 102 , e);
         }
-        return new NekosApi(list);
     }
 }
 

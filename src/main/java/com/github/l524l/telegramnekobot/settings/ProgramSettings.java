@@ -1,6 +1,9 @@
 package com.github.l524l.telegramnekobot.settings;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.l524l.telegramnekobot.nekosapi.NekoApiConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +13,8 @@ public class ProgramSettings {
     private WorkMode workMode;
     private String ownerID;
     private List<String> adminList;
+
+    private final Logger logger = LoggerFactory.getLogger(ProgramSettings.class);
 
     public String getOwner() {
         return ownerID;
@@ -50,6 +55,7 @@ public class ProgramSettings {
         try {
             file.createNewFile();
             objectMapper.writeValue(file, this);
+            logger.info("Saved settings file");
             return true;
         } catch (IOException e) {
             e.printStackTrace();

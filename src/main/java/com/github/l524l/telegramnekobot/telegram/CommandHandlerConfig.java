@@ -2,6 +2,7 @@ package com.github.l524l.telegramnekobot.telegram;
 
 import com.github.l524l.telegramnekobot.telegram.commands.Categories;
 import com.github.l524l.telegramnekobot.telegram.commands.Command;
+import com.github.l524l.telegramnekobot.telegram.commands.Default;
 import com.github.l524l.telegramnekobot.telegram.commands.Photo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,13 +17,16 @@ public class CommandHandlerConfig {
     private Photo photo;
     @Autowired
     private Categories categories;
+    @Autowired
+    private Default default_command;
 
     @Bean
     public CommandHandler createCommandHandler(){
         List<Command> commands = new ArrayList<>();
         commands.add(photo);
         commands.add(categories);
-        CommandHandler commandHandler = new CommandHandler(commands);
+
+        CommandHandler commandHandler = new CommandHandler(commands, default_command);
         return commandHandler;
     }
 }
