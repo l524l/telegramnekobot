@@ -19,6 +19,8 @@ public class CommandHandlerConfig {
     private Categories categories;
     @Autowired
     private Default default_command;
+    @Autowired
+    private CommandsExecutionProtector protector;
 
     @Bean
     public CommandHandler createCommandHandler(){
@@ -26,7 +28,7 @@ public class CommandHandlerConfig {
         commands.add(photo);
         commands.add(categories);
 
-        CommandHandler commandHandler = new CommandHandler(commands, default_command);
+        CommandHandler commandHandler = new CommandHandler(commands, protector, default_command);
         return commandHandler;
     }
 }

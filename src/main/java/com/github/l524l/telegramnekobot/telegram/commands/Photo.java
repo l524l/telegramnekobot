@@ -3,6 +3,7 @@ package com.github.l524l.telegramnekobot.telegram.commands;
 import com.github.l524l.telegramnekobot.exceptions.BotException;
 import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
 import com.github.l524l.telegramnekobot.nekosapi.NekosApiException;
+import com.github.l524l.telegramnekobot.telegram.CommandExecutor;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -29,15 +30,16 @@ public class Photo extends Command {
     }
 
     @Override
-    public void execute(Update update) {
+    public void execute(Update update, CommandExecutor executor) {
         String chat_id = update.getMessage().getChatId().toString();
         String[] params = update.getMessage().getText().split(" ");
         try {
             if (params.length >= 2) {
-
                 URL url = null;
                 try {
-                    url = nekosApi.execute(params[1]);
+                    if (UserRoles.ADMIN.isLessPriority(executor.getRole()))
+                        url = nekosApi.execute(params[1], true);
+                    else url = nekosApi.execute(params[1]);
                 } catch (NekosApiException e) {
                     if (e.getCode() == 101) {
                         SendMessage sendMessage = SendMessage

@@ -19,14 +19,16 @@ public class NekosApi {
         this.categories = categories;
     }
 
-    public URL execute(String category) throws NekosApiException {
+    public URL execute(String category, Boolean ignoreWorkMode) throws NekosApiException {
         AtomicReference<NekoCategory> nekoCategory = new AtomicReference<>();
         categories.forEach((x) -> {
             if (x.getName().equals(category)) nekoCategory.set(x);
         });
         if (nekoCategory.get() == null) throw new NekosApiException("Category doesn't exist", 101);
-        if (nekoCategory.get().isNsfw() && !programSettings.getWorkMode().isNsfw()) throw new NekosApiException("NSFW mode is disabled", 103);
-            try {
+        if (nekoCategory.get().isNsfw() && !programSettings.getWorkMode().isNsfw() && !ignoreWorkMode)
+            throw new NekosApiException("NSFW mode is disabled", 103);
+
+        try {
             URL url = new URL(NEKO_URL + nekoCategory.get().getName());
             ObjectMapper objectMapper = new ObjectMapper();
             NekoApiResponse response = objectMapper.readValue(url, NekoApiResponse.class);
@@ -34,6 +36,10 @@ public class NekosApi {
         } catch (IOException e) {
             throw new NekosApiException("Fail conected to api", 100 ,e);
         }
+    }
+
+    public URL execute(String category) throws NekosApiException {
+        return execute(category, false);
     }
 
     public List<NekoCategory> getCategories() {

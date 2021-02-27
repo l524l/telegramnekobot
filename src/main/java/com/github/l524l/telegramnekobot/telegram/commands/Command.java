@@ -1,6 +1,7 @@
 package com.github.l524l.telegramnekobot.telegram.commands;
 
 import com.github.l524l.telegramnekobot.exceptions.BotException;
+import com.github.l524l.telegramnekobot.telegram.CommandExecutor;
 import com.github.l524l.telegramnekobot.telegram.TelegramSender;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public abstract class Command {
         } else throw new BotException("Class " + command.getName() + " doesn't have annotation TheCommand", 1);
     }
 
-    public abstract void execute(Update update) throws BotException;
+    public abstract void execute(Update update, CommandExecutor executor) throws BotException;
 
     public UserRoles getRequired_role() {
         return required_role;

@@ -1,5 +1,19 @@
 package com.github.l524l.telegramnekobot.telegram;
 
 public enum  UserRoles {
-    ADMIN, USER, OWNER
+    ADMIN(1), USER(2), OWNER(0);
+
+    private int priority;
+
+    UserRoles(int priority) {
+        this.priority = priority;
+    }
+
+    public Integer getPriority(){
+        return priority;
+    }
+
+    public boolean isLessPriority(UserRoles role){
+        return role.getPriority() <= priority;
+    }
 }
