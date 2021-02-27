@@ -28,7 +28,7 @@ public class ProgramSettingsFileConfig {
                 file.createNewFile();
                 settings = new ProgramSettings();
                 settings.setOwner(owner);
-                settings.setWorkMode(WorkMode.LIGHT);
+                settings.setWorkMode(WorkMode.SFW);
                 settings.setAdminList(new ArrayList<>());
                 objectMapper.writeValue(file,settings);
                 logger.info("No settings file, creating default file");

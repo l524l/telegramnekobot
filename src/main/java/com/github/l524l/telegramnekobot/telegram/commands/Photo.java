@@ -5,6 +5,7 @@ import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
 import com.github.l524l.telegramnekobot.nekosapi.NekosApiException;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.IOException;
 import java.net.URL;
 
 @Component("photo")
@@ -45,6 +47,14 @@ public class Photo extends Command {
                                 .build();
                         telegramSender.execute(sendMessage);
                         return;
+                    } else if (e.getCode() == 103){
+                        ClassPathResource resource = new ClassPathResource("/img/404.png");
+                        SendPhoto sendPhoto = SendPhoto.builder()
+                                .chatId(chat_id)
+                                .photo(new InputFile(resource.getFile()))
+                                .build();
+                        telegramSender.execute(sendPhoto);
+                        return;
                     }
                 }
 
@@ -70,7 +80,7 @@ public class Photo extends Command {
                         .build();
                 telegramSender.execute(sendMessage);
             }
-        } catch (TelegramApiException e) {
+        } catch (TelegramApiException | IOException e) {
             e.printStackTrace();
         }
     }
