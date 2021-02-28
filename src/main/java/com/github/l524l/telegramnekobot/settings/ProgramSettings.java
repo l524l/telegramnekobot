@@ -40,6 +40,10 @@ public class ProgramSettings {
         this.adminList = adminList;
     }
 
+    public static ProgramSettingsBuilder builder(){
+        return new ProgramSettingsBuilder();
+    }
+
     public void addAdmin(String userId){
         if (adminList.contains(userId)){
             adminList.add(userId);
@@ -61,5 +65,34 @@ public class ProgramSettings {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static class ProgramSettingsBuilder {
+        private WorkMode workMode;
+        private String ownerID;
+        private List<String> adminList;
+
+        public ProgramSettingsBuilder workMode(WorkMode workMode) {
+            this.workMode = workMode;
+            return this;
+        }
+
+        public ProgramSettingsBuilder ownerID(String ownerID) {
+            this.ownerID = ownerID;
+            return this;
+        }
+
+        public ProgramSettingsBuilder adminList(List<String> adminList) {
+            this.adminList = adminList;
+            return this;
+        }
+
+        public ProgramSettings build(){
+            ProgramSettings settings = new ProgramSettings();
+            settings.setOwner(ownerID);
+            settings.setAdminList(adminList);
+            settings.setWorkMode(workMode);
+            return settings;
+        }
     }
 }

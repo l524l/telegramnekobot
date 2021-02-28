@@ -26,12 +26,17 @@ public class ProgramSettingsFileConfig {
         try {
             if (!file.exists()){
                 file.createNewFile();
-                settings = new ProgramSettings();
-                settings.setOwner(owner);
-                settings.setWorkMode(WorkMode.SFW);
-                settings.setAdminList(new ArrayList<>());
+
+                settings = ProgramSettings.builder()
+                        .ownerID(owner)
+                        .adminList(new ArrayList<>())
+                        .workMode(WorkMode.SFW)
+                        .build();
+
                 objectMapper.writeValue(file,settings);
+
                 logger.info("No settings file, creating default file");
+
                 return settings;
             }else {
                 settings = objectMapper.readValue(file,ProgramSettings.class);
