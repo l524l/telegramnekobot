@@ -71,13 +71,14 @@ public class BotSettings {
         return new ProgramSettingsBuilder();
     }
 
-    public void addAdmin(String userId){
-        if (adminList.contains(userId)){
+    public boolean addAdmin(String userId){
+        if (!adminList.contains(userId)){
             adminList.add(userId);
-        }
+            return true;
+        } else return false;
     }
-    public void removeAdmin(String adminId){
-        adminList.removeIf((x) -> x.equals(adminId));
+    public boolean removeAdmin(String adminId) {
+        return adminList.remove(adminId);
     }
 
     public boolean saveSettings(){

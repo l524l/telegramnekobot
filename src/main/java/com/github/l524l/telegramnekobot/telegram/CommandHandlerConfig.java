@@ -20,6 +20,10 @@ public class CommandHandlerConfig {
     private MyStatus status;
     @Autowired
     private SetWorkMode setWorkMode;
+    @Autowired
+    private AddAdmin addAdmin;
+    @Autowired
+    private RemoveAdmin removeAdmin;
 
     @Autowired
     private CommandsExecutionProtector protector;
@@ -31,6 +35,8 @@ public class CommandHandlerConfig {
         commands.add(categories);
         commands.add(status);
         commands.add(setWorkMode);
+        commands.add(addAdmin);
+        commands.add(removeAdmin);
 
         CommandHandler commandHandler = new CommandHandler(commands, protector, default_command);
         return commandHandler;
