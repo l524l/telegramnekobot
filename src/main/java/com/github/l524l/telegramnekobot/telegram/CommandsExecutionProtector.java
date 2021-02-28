@@ -31,7 +31,7 @@ public class CommandsExecutionProtector {
                 ClassPathResource resource = new ClassPathResource("/img/403.png");
                 SendPhoto sendPhoto = SendPhoto.builder()
                         .chatId(update.getMessage().getChatId().toString())
-                        .photo(new InputFile(resource.getFile()))
+                        .photo(new InputFile(resource.getInputStream(), "403"))
                         .build();
                 telegramSender.execute(sendPhoto);
             } catch (TelegramApiException | IOException e) {

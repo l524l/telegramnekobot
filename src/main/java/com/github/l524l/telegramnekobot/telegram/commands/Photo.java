@@ -53,7 +53,7 @@ public class Photo extends Command {
                         ClassPathResource resource = new ClassPathResource("/img/404.png");
                         SendPhoto sendPhoto = SendPhoto.builder()
                                 .chatId(chat_id)
-                                .photo(new InputFile(resource.getFile()))
+                                .photo(new InputFile(resource.getInputStream(), "404"))
                                 .build();
                         telegramSender.execute(sendPhoto);
                         return;
