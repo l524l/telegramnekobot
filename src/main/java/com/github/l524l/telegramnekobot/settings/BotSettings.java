@@ -80,7 +80,7 @@ public class BotSettings {
         adminList.removeIf((x) -> x.equals(adminId));
     }
 
-    private boolean saveSettings(){
+    public boolean saveSettings(){
         File file = new File("./settings.json");
         ObjectMapper objectMapper = new ObjectMapper();
         try {

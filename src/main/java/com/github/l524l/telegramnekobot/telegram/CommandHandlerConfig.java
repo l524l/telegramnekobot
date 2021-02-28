@@ -18,6 +18,8 @@ public class CommandHandlerConfig {
     private Default default_command;
     @Autowired
     private MyStatus status;
+    @Autowired
+    private SetWorkMode setWorkMode;
 
     @Autowired
     private CommandsExecutionProtector protector;
@@ -28,6 +30,7 @@ public class CommandHandlerConfig {
         commands.add(photo);
         commands.add(categories);
         commands.add(status);
+        commands.add(setWorkMode);
 
         CommandHandler commandHandler = new CommandHandler(commands, protector, default_command);
         return commandHandler;
