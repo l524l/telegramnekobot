@@ -34,11 +34,6 @@ public class SetWorkMode extends Command {
                     .text(String.format("WorkMode изменён на: %s", botSettings.getWorkMode()))
                     .chatId(chat_id)
                     .build();
-            try {
-                telegramSender.execute(sendMessage);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
         } else{
             sendMessage = SendMessage.builder()
                     .text("Вы не указали параметр(SFW/NSFW)")
