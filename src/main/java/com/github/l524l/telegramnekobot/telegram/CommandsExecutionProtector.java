@@ -1,7 +1,7 @@
 package com.github.l524l.telegramnekobot.telegram;
 
 import com.github.l524l.telegramnekobot.exceptions.BotException;
-import com.github.l524l.telegramnekobot.settings.ProgramSettings;
+import com.github.l524l.telegramnekobot.settings.BotSettings;
 import com.github.l524l.telegramnekobot.telegram.commands.Command;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +15,7 @@ import java.util.List;
 public class CommandsExecutionProtector {
     private final Logger logger = LoggerFactory.getLogger(CommandsExecutionProtector.class);
     @Autowired
-    private ProgramSettings settings;
+    private BotSettings settings;
 
     public void execute(Command command, Update update) throws BotException {
         CommandExecutor executor = createExecutor(update);

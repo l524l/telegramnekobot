@@ -1,7 +1,6 @@
 package com.github.l524l.telegramnekobot.settings;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.l524l.telegramnekobot.nekosapi.NekoApiConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,21 +12,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Configuration
-public class ProgramSettingsFileConfig {
-    private final Logger logger = LoggerFactory.getLogger(ProgramSettingsFileConfig.class);
+public class BotSettingsConfig {
+    private final Logger logger = LoggerFactory.getLogger(BotSettingsConfig.class);
     @Value("${telegram.webhook.bot.owner}")
     private String owner;
+    @Value("${telegram.webhook.bot.botToken}")
+    private String token;
+    @Value("${telegram.webhook.bot.botPath}")
+    private String botPath;
+    @Value("${telegram.webhook.bot.botUsername}")
+    private String botUsername;
 
     @Bean
-    public ProgramSettings getProgramSettings(){
-        ProgramSettings settings;
+    public BotSettings getBotSettings(){
+        BotSettings settings;
         File file = new File("./settings.json");
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             if (!file.exists()){
                 file.createNewFile();
 
-                settings = ProgramSettings.builder()
+                settings = BotSettings.builder()
+                        .botToken(token)
+                        .botUsername(botUsername)
+                        .botPath(botPath)
                         .ownerID(owner)
                         .adminList(new ArrayList<>())
                         .workMode(WorkMode.SFW)
@@ -39,7 +47,7 @@ public class ProgramSettingsFileConfig {
 
                 return settings;
             }else {
-                settings = objectMapper.readValue(file,ProgramSettings.class);
+                settings = objectMapper.readValue(file, BotSettings.class);
                 logger.info("Loaded settings file");
                 return settings;
             }

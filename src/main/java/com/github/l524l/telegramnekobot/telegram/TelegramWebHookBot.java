@@ -1,8 +1,7 @@
 package com.github.l524l.telegramnekobot.telegram;
 
 import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
-import com.github.l524l.telegramnekobot.settings.ProgramSettings;
-import com.github.l524l.telegramnekobot.telegram.commands.Photo;
+import com.github.l524l.telegramnekobot.settings.BotSettings;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -12,19 +11,15 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
 public class TelegramWebHookBot extends TelegramWebhookBot {
-    private final TelegramBotConfig botConfig;
-    private final ProgramSettings settings;
-    private final NekosApi nekosApi;
+    private final BotSettings settings;
     private final CommandHandler commandHandler;
 
-    public TelegramWebHookBot(TelegramBotConfig botConfig, ProgramSettings settings, NekosApi nekosApi, CommandHandler commandHandler) {
-        this.botConfig = botConfig;
+    public TelegramWebHookBot(BotSettings settings, CommandHandler commandHandler) {
         this.settings = settings;
-        this.nekosApi = nekosApi;
         this.commandHandler = commandHandler;
         try {
-            if (!getWebhookInfo().getUrl().equals(botConfig.getBotPath())){
-                SetWebhook setWebhook = new SetWebhook(botConfig.getBotPath());
+            if (!getWebhookInfo().getUrl().equals(settings.getBotPath())){
+                SetWebhook setWebhook = new SetWebhook(settings.getBotPath());
                 setWebhook(setWebhook);
             }
         } catch (TelegramApiException e) {
@@ -34,12 +29,12 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
 
     @Override
     public String getBotUsername() {
-        return botConfig.getBotUsername();
+        return settings.getBotUsername();
     }
 
     @Override
     public String getBotToken() {
-        return botConfig.getBotToken();
+        return settings.getBotToken();
     }
 
     @Override
@@ -56,6 +51,6 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
 
     @Override
     public String getBotPath() {
-        return botConfig.getBotPath();
+        return settings.getBotPath();
     }
 }

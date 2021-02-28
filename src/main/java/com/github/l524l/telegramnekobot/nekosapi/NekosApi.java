@@ -1,7 +1,7 @@
 package com.github.l524l.telegramnekobot.nekosapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.l524l.telegramnekobot.settings.ProgramSettings;
+import com.github.l524l.telegramnekobot.settings.BotSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class NekosApi {
     @Autowired
-    private ProgramSettings programSettings;
+    private BotSettings botSettings;
     private final List<NekoCategory> categories;
     private static final String NEKO_URL = "http://api.nekos.fun:8080/api/";
 
@@ -25,7 +25,7 @@ public class NekosApi {
             if (x.getName().equals(category)) nekoCategory.set(x);
         });
         if (nekoCategory.get() == null) throw new NekosApiException("Category doesn't exist", 101);
-        if (nekoCategory.get().isNsfw() && !programSettings.getWorkMode().isNsfw() && !ignoreWorkMode)
+        if (nekoCategory.get().isNsfw() && !botSettings.getWorkMode().isNsfw() && !ignoreWorkMode)
             throw new NekosApiException("NSFW mode is disabled", 103);
 
         try {
