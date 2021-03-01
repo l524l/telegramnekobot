@@ -26,7 +26,8 @@ public class BotSettingsConfig {
     @Bean
     public BotSettings getBotSettings(){
         BotSettings settings;
-        File file = new File("./settings.json");
+        String path = System.getProperty("user.home") + File.separator + "settings.json";
+        File file = new File(path);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             if (!file.exists()){
@@ -43,7 +44,7 @@ public class BotSettingsConfig {
 
                 objectMapper.writeValue(file,settings);
 
-                logger.info("No settings file, creating default file");
+                logger.info("No settings file, creating default file. Path to file: " + path);
 
                 return settings;
             }else {
