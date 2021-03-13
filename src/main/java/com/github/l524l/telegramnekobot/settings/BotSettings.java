@@ -1,15 +1,18 @@
 package com.github.l524l.telegramnekobot.settings;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.l524l.telegramnekobot.databases.entity.VariableSettingsOption;
+import com.github.l524l.telegramnekobot.databases.repository.SettingsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.annotation.Id;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 public class BotSettings {
 
+    private SettingsRepository settingsRepository;
+    @Id
+    private final String id = "program_settings";
     private String botToken;
     private String botUsername;
     private String botPath;
@@ -41,6 +44,14 @@ public class BotSettings {
 
     public void setBotPath(String botPath) {
         this.botPath = botPath;
+    }
+
+    public SettingsRepository getSettingsRepository() {
+        return settingsRepository;
+    }
+
+    public void setSettingsRepository(SettingsRepository settingsRepository) {
+        this.settingsRepository = settingsRepository;
     }
 
     public String getOwner() {
@@ -82,17 +93,12 @@ public class BotSettings {
     }
 
     public boolean saveSettings(){
-        File file = new File("./settings.json");
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            file.createNewFile();
-            objectMapper.writeValue(file, this);
-            logger.info("Saved settings file");
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        VariableSettingsOption options = new VariableSettingsOption();
+        options.setAdminList(adminList);
+        options.setWorkMode(workMode);
+        settingsRepository.save(options);
+        logger.info("Saved settings file");
+        return true;
     }
 
     public static class ProgramSettingsBuilder {
@@ -103,6 +109,7 @@ public class BotSettings {
         private String botToken;
         private String botUsername;
         private String botPath;
+        private SettingsRepository repository;
 
         public ProgramSettingsBuilder botToken(String botToken) {
             this.botToken = botToken;
@@ -134,6 +141,11 @@ public class BotSettings {
             return this;
         }
 
+        public ProgramSettingsBuilder repository(SettingsRepository repository) {
+            this.repository = repository;
+            return this;
+        }
+
         public BotSettings build(){
             BotSettings settings = new BotSettings();
             settings.setOwner(ownerID);
@@ -142,6 +154,8 @@ public class BotSettings {
             settings.setBotPath(botPath);
             settings.setBotToken(botToken);
             settings.setBotUsername(botUsername);
+            settings.setSettingsRepository(repository);
+
             return settings;
         }
     }

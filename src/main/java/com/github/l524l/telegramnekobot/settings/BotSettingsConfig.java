@@ -1,15 +1,16 @@
 package com.github.l524l.telegramnekobot.settings;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.l524l.telegramnekobot.databases.entity.VariableSettingsOption;
+import com.github.l524l.telegramnekobot.databases.repository.SettingsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Configuration
 public class BotSettingsConfig {
@@ -23,38 +24,43 @@ public class BotSettingsConfig {
     @Value("${telegram.webhook.bot.botUsername}")
     private String botUsername;
 
+    @Autowired
+    private SettingsRepository settingsRepository;
+
     @Bean
     public BotSettings getBotSettings(){
-        BotSettings settings;
-        String path = System.getProperty("user.home") + File.separator + "settings.json";
-        File file = new File(path);
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            if (!file.exists()){
-                file.createNewFile();
+        BotSettings.ProgramSettingsBuilder builder = new BotSettings.ProgramSettingsBuilder();
+        VariableSettingsOption settingsOption = new VariableSettingsOption();
+        Optional<VariableSettingsOption> options = settingsRepository.findById("program_settings");
 
-                settings = BotSettings.builder()
-                        .botToken(token)
-                        .botUsername(botUsername)
-                        .botPath(botPath)
-                        .ownerID(owner)
+        builder.botToken(token)
+                .botUsername(botUsername)
+                .botPath(botPath)
+                .ownerID(owner)
+                .repository(settingsRepository);
+
+        if (!options.isPresent()){
+                    builder
                         .adminList(new ArrayList<>())
-                        .workMode(WorkMode.SFW)
-                        .build();
+                        .workMode(WorkMode.SFW);
 
-                objectMapper.writeValue(file,settings);
+                settingsOption.setAdminList(new ArrayList<>());
+                settingsOption.setWorkMode(WorkMode.SFW);
 
-                logger.info("No settings file, creating default file. Path to file: " + path);
+                settingsRepository.save(settingsOption);
 
-                return settings;
+                logger.info("No settings option in DB, creating default profile");
+
+                return builder.build();
             }else {
-                settings = objectMapper.readValue(file, BotSettings.class);
-                logger.info("Loaded settings file");
-                return settings;
+                settingsOption = options.get();
+                builder.workMode(settingsOption.getWorkMode());
+
+                if (settingsOption.getAdminList() == null) builder.adminList(new ArrayList<>());
+                    else builder.adminList(settingsOption.getAdminList());
+
+                logger.info("Loaded settings from DB");
+                return builder.build();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }
