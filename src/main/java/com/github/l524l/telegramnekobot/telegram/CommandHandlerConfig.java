@@ -24,6 +24,8 @@ public class CommandHandlerConfig {
     private AddAdmin addAdmin;
     @Autowired
     private RemoveAdmin removeAdmin;
+    @Autowired
+    private AdminsList adminsList;
 
     @Autowired
     private CommandsExecutionProtector protector;
@@ -37,6 +39,7 @@ public class CommandHandlerConfig {
         commands.add(setWorkMode);
         commands.add(addAdmin);
         commands.add(removeAdmin);
+        commands.add(adminsList);
 
         CommandHandler commandHandler = new CommandHandler(commands, protector, default_command);
         return commandHandler;
