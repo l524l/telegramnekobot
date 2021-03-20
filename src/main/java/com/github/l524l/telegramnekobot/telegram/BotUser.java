@@ -1,10 +1,10 @@
 package com.github.l524l.telegramnekobot.telegram;
 
-public class CommandExecutor {
+public class BotUser {
     private final String username;
     private final UserRoles role;
 
-    public CommandExecutor(String username, UserRoles role) {
+    public BotUser(String username, UserRoles role) {
         this.username = username;
         this.role = role;
     }

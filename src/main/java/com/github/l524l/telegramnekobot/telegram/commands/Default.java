@@ -1,7 +1,7 @@
 package com.github.l524l.telegramnekobot.telegram.commands;
 
 import com.github.l524l.telegramnekobot.exceptions.BotException;
-import com.github.l524l.telegramnekobot.telegram.CommandExecutor;
+import com.github.l524l.telegramnekobot.telegram.BotUser;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -17,10 +17,10 @@ public class Default extends Command {
     }
 
     @Override
-    public void execute(Update update, CommandExecutor executor) throws BotException {
+    public void execute(Update update, BotUser executor) throws BotException {
         SendMessage sendMessage = SendMessage.
                 builder()
-                .chatId(update.getMessage().getChatId().toString())
+                .chatId(getChatID(update))
                 .text("Команда не распознана")
                 .build();
         try {

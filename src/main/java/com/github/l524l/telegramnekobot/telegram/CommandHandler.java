@@ -23,14 +23,14 @@ public class CommandHandler {
     }
 
     public void execute(Update update){
-        update.getMessage().getFrom().getUserName();
-        String text = update.getMessage().getText();
         try {
+            String text = Command.getText(update);
             protector.execute(findCommand(text), update);
         } catch (BotException e) {
             e.printStackTrace();
         }
     }
+
     private Command findCommand(String text) {
         AtomicReference<Command> command = new AtomicReference<>();
         list.forEach((x) -> {

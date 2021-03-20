@@ -3,7 +3,7 @@ package com.github.l524l.telegramnekobot.telegram.commands;
 import com.github.l524l.telegramnekobot.exceptions.BotException;
 import com.github.l524l.telegramnekobot.settings.BotSettings;
 import com.github.l524l.telegramnekobot.settings.WorkMode;
-import com.github.l524l.telegramnekobot.telegram.CommandExecutor;
+import com.github.l524l.telegramnekobot.telegram.BotUser;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,9 +23,9 @@ public class SetWorkMode extends Command {
     }
 
     @Override
-    public void execute(Update update, CommandExecutor executor) {
-        String chat_id = update.getMessage().getChatId().toString();
-        String[] params = update.getMessage().getText().split(" ");
+    public void execute(Update update, BotUser executor) throws BotException {
+        String chat_id = getChatID(update);
+        String[] params = getText(update).split(" ");
         SendMessage sendMessage;
         if (params.length >= 2 && params[1].matches("(NSFW)|(SFW)")) {
             botSettings.setWorkMode(WorkMode.valueOf(params[1]));

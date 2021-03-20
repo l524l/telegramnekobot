@@ -2,7 +2,7 @@ package com.github.l524l.telegramnekobot.telegram.commands;
 
 import com.github.l524l.telegramnekobot.exceptions.BotException;
 import com.github.l524l.telegramnekobot.settings.BotSettings;
-import com.github.l524l.telegramnekobot.telegram.CommandExecutor;
+import com.github.l524l.telegramnekobot.telegram.BotUser;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,10 +21,10 @@ public class RemoveAdmin extends Command {
     }
 
     @Override
-    public void execute(Update update, CommandExecutor executor) {
+    public void execute(Update update, BotUser executor) throws BotException {
         SendMessage sendMessage;
-        String chat_id = update.getMessage().getChatId().toString();
-        String[] params = update.getMessage().getText().split(" ");
+        String chat_id = getChatID(update);
+        String[] params = getText(update).split(" ");
         if (params.length >= 2 && params[1].trim().length() > 3){
             if (settings.removeAdmin(params[1])){
                 settings.saveSettings();

@@ -2,7 +2,7 @@ package com.github.l524l.telegramnekobot.telegram.commands;
 
 import com.github.l524l.telegramnekobot.exceptions.BotException;
 import com.github.l524l.telegramnekobot.settings.BotSettings;
-import com.github.l524l.telegramnekobot.telegram.CommandExecutor;
+import com.github.l524l.telegramnekobot.telegram.BotUser;
 import com.github.l524l.telegramnekobot.telegram.UserRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class AdminsList extends Command {
     private BotSettings botSettings;
 
     @Override
-    public void execute(Update update, CommandExecutor executor) {
+    public void execute(Update update, BotUser executor) throws BotException {
         StringBuilder adminlist = new StringBuilder();
         adminlist.append("Список администраторов:\n");
         botSettings.getAdminList().forEach((x) ->
@@ -28,7 +28,7 @@ public class AdminsList extends Command {
         );
         SendMessage sendMessage = SendMessage.
                 builder()
-                .chatId(update.getMessage().getChatId().toString())
+                .chatId(getChatID(update))
                 .text(adminlist.toString())
                 .parseMode("MarkdownV2")
                 .build();

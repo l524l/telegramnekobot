@@ -24,13 +24,13 @@ public class CommandsExecutionProtector {
     @Autowired TelegramSender telegramSender;
 
     public void execute(Command command, Update update) throws BotException {
-        CommandExecutor executor = createExecutor(update);
+        BotUser executor = createExecutor(update);
         if (command.getRequired_role().isLessPriority(executor.getRole())) command.execute(update, executor);
         else {
             try {
                 ClassPathResource resource = new ClassPathResource("/img/403.png");
                 SendPhoto sendPhoto = SendPhoto.builder()
-                        .chatId(update.getMessage().getChatId().toString())
+                        .chatId(Command.getChatID(update))
                         .photo(new InputFile(resource.getInputStream(), "403"))
                         .build();
                 telegramSender.execute(sendPhoto);
@@ -39,8 +39,8 @@ public class CommandsExecutionProtector {
             }
         }
     }
-    private CommandExecutor createExecutor(Update update){
-        String username = update.getMessage().getFrom().getUserName();
+    private BotUser createExecutor(Update update) throws BotException {
+        String username = Command.getFrom(update).getUserName();
         UserRoles role;
         List<String> adminList = settings.getAdminList();
         if (settings.getOwner().equals(username)) {
@@ -48,6 +48,6 @@ public class CommandsExecutionProtector {
         } else if (adminList.contains(username)){
             role = UserRoles.ADMIN;
         } else role = UserRoles.USER;
-        return new CommandExecutor(username, role);
+        return new BotUser(username, role);
     }
 }

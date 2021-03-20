@@ -4,7 +4,6 @@ import com.github.l524l.telegramnekobot.settings.BotSettings;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
-import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -41,7 +40,7 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
 
         try {
-            commandHandler.execute(update);
+            if (update.hasMessage() || update.hasCallbackQuery()) commandHandler.execute(update);
         }catch (Throwable e){
             e.printStackTrace();
         }
