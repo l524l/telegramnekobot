@@ -1,10 +1,10 @@
 package com.github.l524l.telegramnekobot.telegram;
 
-import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
 import com.github.l524l.telegramnekobot.settings.BotSettings;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
+import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
