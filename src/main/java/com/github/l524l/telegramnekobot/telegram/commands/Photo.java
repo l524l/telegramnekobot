@@ -35,11 +35,11 @@ public class Photo extends Command {
     @Override
     public void execute(Update update, BotUser executor) throws BotException {
         String chat_id = getChatID(update);
-        String[] params = getText(update).split(" ");
+        String[] params = readParams(update);
         try {
-            if (params.length >= 2) {
+            if (params.length >= 1) {
                 URL url = null;
-                String category = params[1];
+                String category = params[0];
                 try {
                     if (UserRoles.ADMIN.isLessPriority(executor.getRole()))
                         url = nekosApi.execute(category, true);

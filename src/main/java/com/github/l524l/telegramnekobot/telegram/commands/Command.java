@@ -61,6 +61,13 @@ public abstract class Command {
         return description;
     }
 
+    protected String[] readParams(Update update) throws BotException {
+        String s = getText(update).replaceFirst("(^/\\S+(\\s)*)","").trim();
+        String[] p = s.split("\\s+");
+        if (p[0].equals("")) return new String[0];
+        return p;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Command)) return false;

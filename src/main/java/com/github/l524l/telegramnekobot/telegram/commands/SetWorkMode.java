@@ -25,9 +25,9 @@ public class SetWorkMode extends Command {
     @Override
     public void execute(Update update, BotUser executor) throws BotException {
         String chat_id = getChatID(update);
-        String[] params = getText(update).split(" ");
+        String[] params = readParams(update);
         SendMessage sendMessage;
-        if (params.length >= 2 && params[1].matches("(NSFW)|(SFW)")) {
+        if (params.length >= 1 && params[0].matches("(NSFW)|(SFW)")) {
             botSettings.setWorkMode(WorkMode.valueOf(params[1]));
             botSettings.saveSettings();
             sendMessage = SendMessage.builder()

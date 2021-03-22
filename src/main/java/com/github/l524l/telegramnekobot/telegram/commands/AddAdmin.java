@@ -24,9 +24,9 @@ public class AddAdmin extends Command {
     public void execute(Update update, BotUser executor) throws BotException {
         SendMessage sendMessage;
         String chat_id = getChatID(update);
-        String[] params = getText(update).split(" ");
-        if (params.length >= 2 && params[1].trim().length() > 3){
-            if (settings.addAdmin(params[1])){
+        String[] params = readParams(update);
+        if (params.length >= 1 && params[0].trim().length() > 3){
+            if (settings.addAdmin(params[0])){
                 settings.saveSettings();
                 sendMessage = SendMessage.builder()
                         .chatId(chat_id)
