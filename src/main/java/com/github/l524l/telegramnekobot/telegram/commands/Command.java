@@ -60,4 +60,11 @@ public abstract class Command {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Command)) return false;
+        Command command = (Command) obj;
+        return command.getName().equals(this.name);
+    }
 }

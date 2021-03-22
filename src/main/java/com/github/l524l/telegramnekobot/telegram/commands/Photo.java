@@ -65,7 +65,7 @@ public class Photo extends Command {
                 }
 
                 ArrayList<InlineKeyboardButton> arrayList = new ArrayList<>();
-                arrayList.add(InlineKeyboardButton.builder().text("Ещё " + category).callbackData("/photo " + category).build());
+                arrayList.add(InlineKeyboardButton.builder().text("Ещё " + category).callbackData("/another " + category).build());
 
                 if (url.getFile().endsWith(".gif") | url.getFile().endsWith(".GIF")) {
                     SendDocument sendDocument = SendDocument

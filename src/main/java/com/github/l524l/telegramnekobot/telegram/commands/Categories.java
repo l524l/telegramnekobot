@@ -24,31 +24,22 @@ public class Categories extends Command {
         SendMessage sendMessage = SendMessage.
                 builder()
                 .chatId(getChatID(update))
-                .text(("```\n" +
-                    "nsfw    | sfw\n" +
-                    "---------------------\n"+
-                    "4k      | neko\n" +
-                    "gasm    | kiss\n" +
-                    "cum     | lick\n" +
-                    "gif     | hug\n" +
-                    "lewd    | wallpapers\n" +
-                    "anal    | tickle\n" +
-                    "hentai  | baka\n" +
-                    "lesbian | animalears\n" +
-                    "blowjob | laugh\n" +
-                    "holo    | feet\n" +
-                    "pussy   | cuddle\n" +
-                    "boobs   | pat\n" +
-                    "        | feed\n" +
-                    "        | foxgirl\n" +
-                    "        | slap\n" +
-                    "        | poke\n" +
-                    "        | smug\n```"))
+                .text(("```     SFW\n" +
+                        "------------------\n" +
+                        "lick  | kiss\n" +
+                        "hug   | wallpapers\n" +
+                        "baka  | tickle\n" +
+                        "feet  | animalears\n" +
+                        "pat   | laugh\n" +
+                        "feed  | cuddle\n" +
+                        "poke  | smug\n" +
+                        "slap  | foxgirl\n" +
+                        "neko  |\n" +
+                        "     1/2```"))
                 .parseMode("MarkdownV2")
                 .build();
         ArrayList<InlineKeyboardButton> arrayList = new ArrayList<>();
-        arrayList.add(InlineKeyboardButton.builder().text("SFW").callbackData("category SFW").build());
-        arrayList.add(InlineKeyboardButton.builder().text("NSFW").callbackData("category NSFW").build());
+        arrayList.add(InlineKeyboardButton.builder().text("→").callbackData("/showcategory NSFW").build());
         sendMessage.setReplyMarkup(InlineKeyboardMarkup.builder().keyboardRow(arrayList).build());
 
         try {

@@ -4,6 +4,7 @@ import com.github.l524l.telegramnekobot.exceptions.BotException;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
@@ -29,5 +30,9 @@ public abstract class CallbackCommand extends Command {
     }
     protected void sendAnswer(String queryId){
         sendAnswer(queryId, null);
+    }
+
+    protected String getQueryId(Update update){
+        return update.getCallbackQuery().getId();
     }
 }
