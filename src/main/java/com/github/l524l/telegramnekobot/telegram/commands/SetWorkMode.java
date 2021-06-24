@@ -28,7 +28,7 @@ public class SetWorkMode extends Command {
         String[] params = readParams(update);
         SendMessage sendMessage;
         if (params.length >= 1 && params[0].matches("(NSFW)|(SFW)")) {
-            botSettings.setWorkMode(WorkMode.valueOf(params[1]));
+            botSettings.setWorkMode(WorkMode.valueOf(params[0]));
             botSettings.saveSettings();
             sendMessage = SendMessage.builder()
                     .text(String.format("WorkMode изменён на: %s", botSettings.getWorkMode()))
