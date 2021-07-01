@@ -27,7 +27,7 @@
 		"nsfw": false
 	}, {
 		"name": "feet",
-		"nsfw": false
+		"nsfw": true
 	}, {
 		"name": "cuddle",
 		"nsfw": false

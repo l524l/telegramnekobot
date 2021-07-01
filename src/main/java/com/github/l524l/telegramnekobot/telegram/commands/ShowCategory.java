@@ -28,12 +28,11 @@ public class ShowCategory extends CallbackCommand {
                 "lick  | kiss\n" +
                 "hug   | wallpapers\n" +
                 "baka  | tickle\n" +
-                "feet  | animalears\n" +
+                "neko  | animalears\n" +
                 "pat   | laugh\n" +
                 "feed  | cuddle\n" +
                 "poke  | smug\n" +
                 "slap  | foxgirl\n" +
-                "neko  |\n" +
                 "     1/2```";
         String NSFW = "```     NSFW\n" +
                 "---------------\n" +
@@ -43,6 +42,7 @@ public class ShowCategory extends CallbackCommand {
                 "gif   | boobs\n" +
                 "lewd  | pussy\n" +
                 "anal  | holo\n" +
+                "feet  |\n" +
                 "     2/2```";
 
 

@@ -29,12 +29,11 @@ public class Categories extends Command {
                         "lick  | kiss\n" +
                         "hug   | wallpapers\n" +
                         "baka  | tickle\n" +
-                        "feet  | animalears\n" +
+                        "neko  | animalears\n" +
                         "pat   | laugh\n" +
                         "feed  | cuddle\n" +
                         "poke  | smug\n" +
                         "slap  | foxgirl\n" +
-                        "neko  |\n" +
                         "     1/2```"))
                 .parseMode("MarkdownV2")
                 .build();
