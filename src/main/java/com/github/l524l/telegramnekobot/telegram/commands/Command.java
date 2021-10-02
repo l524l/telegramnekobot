@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 @Component
+@Deprecated
 public abstract class Command {
     @Autowired
     protected TelegramSender telegramSender;

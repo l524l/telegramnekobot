@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
+@Deprecated
 public class CommandHandlerConfig {
     @Autowired
     private List<Command> commands;

@@ -1,0 +1,28 @@
+spring:
+
+  datasource:
+    url: ${DATANBASE_URL:jdbc:postgresql://localhost:5432/telegram_bot_db}
+    username: ${DATANBASE_USERNAME:postgres}
+    password: ${DATANBASE_PASSWORD:1}
+    pool-size: ${DATANBASE_POOL-SIZE:30}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  redis:
+    host: ${REDISLINK}
+    port: ${REDISPORT}
+    password: ${REDISPASSWORD}
+    timeout: 60000
+
+server:
+  port: ${PORT:8080}
+
+telegram:
+  webhook:
+    bot:
+      botToken: ${TOKEN}
+      botUsername: ${USERNAME}
+      botPath: ${BOTURL}
+      owner: ${OWNER}

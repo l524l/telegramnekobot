@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
+@Deprecated
 public class CommandHandler {
     private final Logger logger = LoggerFactory.getLogger(CommandHandler.class);
     private final List<Command> list;

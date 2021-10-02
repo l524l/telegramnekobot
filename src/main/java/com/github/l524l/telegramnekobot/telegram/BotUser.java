@@ -1,5 +1,6 @@
 package com.github.l524l.telegramnekobot.telegram;
 
+@Deprecated
 public class BotUser {
     private final String username;
     private final UserRoles role;

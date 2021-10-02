@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
+@Deprecated
 public class CommandsExecutionProtector {
     private final Logger logger = LoggerFactory.getLogger(CommandsExecutionProtector.class);
     @Autowired

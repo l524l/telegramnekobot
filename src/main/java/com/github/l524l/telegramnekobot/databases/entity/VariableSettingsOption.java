@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisHash;
 import java.util.List;
 
 @RedisHash("settings")
+@Deprecated
 public class VariableSettingsOption {
     @Id
     private String id = "program_settings";
