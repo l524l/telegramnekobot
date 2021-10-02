@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
+@Deprecated
 @TheCommand(name = "start", description = "Начало работы с ботом", required_role = UserRoles.USER)
 public class Start extends Command {
     protected Start() throws BotException {

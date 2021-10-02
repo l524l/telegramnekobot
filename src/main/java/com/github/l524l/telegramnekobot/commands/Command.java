@@ -12,7 +12,7 @@ public abstract class Command {
     protected BotUser executor;
     protected Message message;
 
-    public abstract void execute();
+    public abstract void execute() throws Throwable;
 
     public void setContext(BotUser executor, Message message) {
         this.executor = executor;
