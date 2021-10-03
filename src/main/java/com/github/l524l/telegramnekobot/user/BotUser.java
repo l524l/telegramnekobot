@@ -108,6 +108,10 @@ public class BotUser {
         }
     }
 
+    public void removeRole(UserRole role) {
+        roles.remove(role);
+    }
+
     public boolean hasRole(UserRole role) {
         return roles.contains(role);
     }
