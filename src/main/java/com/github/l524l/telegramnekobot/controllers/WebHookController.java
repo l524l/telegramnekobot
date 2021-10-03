@@ -1,7 +1,9 @@
 package com.github.l524l.telegramnekobot.controllers;
 
+import com.github.l524l.telegramnekobot.handlers.UpdateHandler;
 import com.github.l524l.telegramnekobot.telegram.TelegramWebHookBot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,16 +13,15 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @RestController
 public class WebHookController {
-    private final TelegramWebHookBot telegramWebHookBot;
-
+    private final UpdateHandler updateHandler;
 
     @Autowired
-    public WebHookController(TelegramWebHookBot telegramWebHookBot) throws TelegramApiException { this.telegramWebHookBot = telegramWebHookBot;
+    public WebHookController(@Qualifier("mainHandler") UpdateHandler updateHandler) {
+        this.updateHandler = updateHandler;
     }
 
     @RequestMapping(path = "/")
     public @ResponseBody Object getWebHooks(@RequestBody Update update){
-        telegramWebHookBot.onWebhookUpdateReceived(update);
-        return "ok";
+        return updateHandler.handleRequest(update);
     }
 }

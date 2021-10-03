@@ -10,7 +10,11 @@ import org.telegram.telegrambots.meta.api.objects.User;
 @Component
 public class UserUpdateHandler extends UpdateHandler {
 
-    private UserRepository repository;
+    private final UserRepository repository;
+
+    public UserUpdateHandler(UserRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public String handleRequest(Update update) {
@@ -19,7 +23,7 @@ public class UserUpdateHandler extends UpdateHandler {
             int userId = user.getId();
 
             if (!repository.existsById(userId)) {
-                BotUser newBotUser = new BotUser(userId, user.getFirstName(), user.getLastName());
+                BotUser newBotUser = new BotUser(userId, user.getFirstName(), user.getLastName(), user.getUserName());
                 repository.save(newBotUser);
             }
         }

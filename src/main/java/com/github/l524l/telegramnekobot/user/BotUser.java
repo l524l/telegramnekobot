@@ -22,6 +22,10 @@ public class BotUser {
     @ColumnDefault("'none'")
     private String lastName;
 
+    @Column(name = "user_short_name")
+    @ColumnDefault("'none'")
+    private String username;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="settings_uuid")
     private UserSettings userSettings;
@@ -35,16 +39,19 @@ public class BotUser {
     @ColumnDefault("false")
     private boolean banned;
 
-    public BotUser(int id, String firstName, String lastName) {
+    public BotUser(){}
+
+    public BotUser(int id, String firstName, String lastName, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
         this.userSettings = new UserSettings();
         this.roles = new ArrayList<>();
         this.roles.add(UserRole.USER);
     }
     public BotUser(int id, String firstName){
-        this(id,firstName,null);
+        this(id, firstName,null, null);
     }
 
     public int getId() {
@@ -69,6 +76,14 @@ public class BotUser {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public UserSettings getUserSettings() {

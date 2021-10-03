@@ -14,7 +14,7 @@ public class DBTest {
 
     @Test
     void saveUser() {
-        BotUser botUser = new BotUser(0,"112","12");
+        BotUser botUser = new BotUser(0,"112","12","as");
 
         repository.save(botUser);
     }

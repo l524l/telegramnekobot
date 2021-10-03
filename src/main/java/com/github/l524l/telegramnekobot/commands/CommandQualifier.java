@@ -33,7 +33,11 @@ public class CommandQualifier implements NewMessageObserver {
         Command command = commandFactory.createCommand(type);
         command.setContext(user, message);
 
-        command.execute();
+        try {
+            command.execute();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     public CommandType parseCommandType(String string){
