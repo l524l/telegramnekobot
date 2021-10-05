@@ -24,7 +24,7 @@ public abstract class Command {
             required_role = theCommand.required_role();
             name = theCommand.name();
             description = theCommand.description();
-        } else throw new BotException("Class " + command.getName() + " doesn't have annotation TheCommand", 1);
+        } else throw new BotException("Class " + command.getName() + " doesn't have annotation TheCommand");
     }
 
     public abstract void execute(Update update, BotUser executor) throws BotException;
@@ -33,21 +33,21 @@ public abstract class Command {
         if (update.hasMessage()) return update.getMessage().getChatId().toString();
         else if (update.hasCallbackQuery()) {
              return update.getCallbackQuery().getMessage().getChatId().toString();
-        } else throw new BotException("Incorrect update!",3);
+        } else throw new BotException("Incorrect update!");
     }
 
     public static String getText(Update update) throws BotException {
         if (update.hasMessage()) return update.getMessage().getText();
         else if (update.hasCallbackQuery()) {
             return update.getCallbackQuery().getData();
-        } else throw new BotException("Incorrect update!",3);
+        } else throw new BotException("Incorrect update!");
     }
 
     public static User getFrom(Update update) throws BotException {
         if (update.hasMessage()) return update.getMessage().getFrom();
         else if (update.hasCallbackQuery()) {
             return update.getCallbackQuery().getFrom();
-        } else throw new BotException("Incorrect update!",3);
+        } else throw new BotException("Incorrect update!");
     }
 
     public UserRoles getRequired_role() {

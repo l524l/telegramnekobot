@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
+@Deprecated
 @TheCommand(name = "addadmin", description = "Добавляет админа", required_role = UserRoles.OWNER)
 public class AddAdmin extends Command {
     @Autowired

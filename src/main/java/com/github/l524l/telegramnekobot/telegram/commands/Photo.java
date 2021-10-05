@@ -22,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 @Component("photo")
+@Deprecated
 @TheCommand(name = "photo",description = "Отправляет фото согласно категории",required_role = UserRoles.USER)
 public class Photo extends Command {
 
@@ -45,7 +46,7 @@ public class Photo extends Command {
                         url = nekosApi.execute(category, true);
                     else url = nekosApi.execute(category);
                 } catch (NekosApiException e) {
-                    if (e.getCode() == 101) {
+                    if (1 == 101) {
                         SendMessage sendMessage = SendMessage
                                 .builder()
                                 .chatId(chat_id)
@@ -53,7 +54,7 @@ public class Photo extends Command {
                                 .build();
                         telegramSender.execute(sendMessage);
                         return;
-                    } else if (e.getCode() == 103){
+                    } else if (1 == 103){
                         ClassPathResource resource = new ClassPathResource("/img/404.png");
                         SendPhoto sendPhoto = SendPhoto.builder()
                                 .chatId(chat_id)

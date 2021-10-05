@@ -24,9 +24,9 @@ public class NekosApi {
         categories.forEach((x) -> {
             if (x.getName().equals(category)) nekoCategory.set(x);
         });
-        if (nekoCategory.get() == null) throw new NekosApiException("Category doesn't exist", 101);
+        if (nekoCategory.get() == null) throw new NekosApiException("Category doesn't exist");
         if (nekoCategory.get().isNsfw() && !botSettings.getWorkMode().isNsfw() && !ignoreWorkMode)
-            throw new NekosApiException("NSFW mode is disabled", 103);
+            throw new NekosApiException("NSFW mode is disabled");
 
         try {
             URL url = new URL(NEKO_URL + nekoCategory.get().getName());
@@ -34,7 +34,7 @@ public class NekosApi {
             NekoApiResponse response = objectMapper.readValue(url, NekoApiResponse.class);
             return response.getImage();
         } catch (IOException e) {
-            throw new NekosApiException("Fail conected to api", 100 ,e);
+            throw new NekosApiException("Fail conected to api", e);
         }
     }
 

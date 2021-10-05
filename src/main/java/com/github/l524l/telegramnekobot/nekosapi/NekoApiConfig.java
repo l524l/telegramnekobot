@@ -24,7 +24,7 @@ public class NekoApiConfig {
             logger.info("Loaded categories file");
             return new NekosApi(list);
         } catch (IOException e) {
-            throw new NekosApiException("Fail loading categories file", 102 , e);
+            throw new NekosApiException("Fail loading categories file", e);
         }
     }
 }
