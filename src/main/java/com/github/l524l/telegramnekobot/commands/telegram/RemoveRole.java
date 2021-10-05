@@ -53,9 +53,9 @@ public class RemoveRole extends Command {
         super.validate();
 
         if (parameters.size() != 2)
-            throw new ValidationException("Ожидались параметры: /addrole {username} {role}");
+            throw new ValidationException("Ожидались параметры: /removerole {username} {role}");
 
-        if (UserRole.isExist(parameters.get(1).toUpperCase()))
+        if (!UserRole.isExist(parameters.get(1).toUpperCase()))
             throw new ValidationException(String.format("Роль %s не существует", parameters.get(1).toUpperCase()));
 
         if (UserRole.valueOf(parameters.get(1).toUpperCase()).equals(UserRole.USER))

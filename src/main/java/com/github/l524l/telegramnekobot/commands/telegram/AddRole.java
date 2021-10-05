@@ -57,7 +57,7 @@ public class AddRole extends Command {
         if (parameters.size() != 2)
             throw new ValidationException("Ожидались параметры: /addrole {username} {role}");
 
-        if (UserRole.isExist(parameters.get(1).toUpperCase()))
+        if (!UserRole.isExist(parameters.get(1).toUpperCase()))
             throw new ValidationException(String.format("Роль %s не существует", parameters.get(1).toUpperCase())) ;
     }
 }
