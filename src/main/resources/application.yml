@@ -9,6 +9,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  http:
+    converters:
+      preferred-json-mapper: gson
 
   redis:
     host: ${REDISLINK}
