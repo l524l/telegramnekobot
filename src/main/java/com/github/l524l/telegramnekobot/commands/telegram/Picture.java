@@ -6,7 +6,7 @@ import com.github.l524l.telegramnekobot.exceptions.ValidationException;
 import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
 import com.github.l524l.telegramnekobot.telegram.TelegramSender;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
+import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -37,9 +37,9 @@ public class Picture extends Command {
         arrayList.add(InlineKeyboardButton.builder().text("Ещё " + category).callbackData("/another " + category).build());
 
         if (imgUrl.getFile().endsWith(".gif") | imgUrl.getFile().endsWith(".GIF")) {
-            SendDocument sendDocument = SendDocument.builder()
+            SendAnimation sendDocument = SendAnimation.builder()
                     .chatId(message.getChatId().toString())
-                    .document(new InputFile(imgUrl.toString()))
+                    .animation(new InputFile(imgUrl.toString()))
                     .build();
             sendDocument.setReplyMarkup(InlineKeyboardMarkup.builder().keyboardRow(arrayList).build());
             telegramSender.execute(sendDocument);
