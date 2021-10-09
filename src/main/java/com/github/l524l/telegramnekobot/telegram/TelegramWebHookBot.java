@@ -6,16 +6,16 @@ import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.WebhookInfo;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.util.WebhookUtils;
 
 @Component
 public class TelegramWebHookBot extends TelegramWebhookBot {
     private final BotSettings settings;
-    private final CommandHandler commandHandler;
 
-    public TelegramWebHookBot(BotSettings settings, CommandHandler commandHandler) {
+    public TelegramWebHookBot(BotSettings settings) {
         this.settings = settings;
-        this.commandHandler = commandHandler;
         try {
             if (!getWebhookInfo().getUrl().equals(settings.getBotPath())){
                 SetWebhook setWebhook = new SetWebhook(settings.getBotPath());
@@ -38,14 +38,7 @@ public class TelegramWebHookBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
-
-        try {
-            if (update.hasMessage() || update.hasCallbackQuery()) commandHandler.execute(update);
-        }catch (Throwable e){
-            e.printStackTrace();
-        }
-
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
