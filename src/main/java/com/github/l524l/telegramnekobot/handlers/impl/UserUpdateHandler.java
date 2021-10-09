@@ -20,7 +20,7 @@ public class UserUpdateHandler extends UpdateHandler {
     public String handleRequest(Update update) {
         if (update.hasMessage()) {
             User user = update.getMessage().getFrom();
-            int userId = user.getId();
+            long userId = user.getId();
 
             if (!repository.existsById(userId)) {
                 BotUser newBotUser = new BotUser(userId, user.getFirstName(), user.getLastName(), user.getUserName());

@@ -12,7 +12,7 @@ public class BotUser {
 
     @Id
     @Column(name = "id")
-    private int id;
+    private long id;
 
     @Column(name = "first_name")
     @ColumnDefault("'none'")
@@ -41,7 +41,7 @@ public class BotUser {
 
     public BotUser(){}
 
-    public BotUser(int id, String firstName, String lastName, String username) {
+    public BotUser(long id, String firstName, String lastName, String username) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,15 +50,15 @@ public class BotUser {
         this.roles = new ArrayList<>();
         this.roles.add(UserRole.USER);
     }
-    public BotUser(int id, String firstName){
+    public BotUser(long id, String firstName){
         this(id, firstName,null, null);
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<BotUser, Integer> {
+public interface UserRepository extends JpaRepository<BotUser, Long> {
     Optional<BotUser> findBotUserByUsername(String name);
 }
