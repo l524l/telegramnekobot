@@ -28,4 +28,3 @@ telegram:
       botToken: ${TOKEN}
       botUsername: ${USERNAME}
       botPath: ${BOTURL}
-      owner: ${OWNER}

@@ -22,9 +22,6 @@ public abstract class NekosApi {
 
     public abstract URL execute(NekoCategory category) throws Exception;
 
-
-
-
     public List<NekoCategory> getNekoCategoryList() {
         return nekoCategoryList;
     }

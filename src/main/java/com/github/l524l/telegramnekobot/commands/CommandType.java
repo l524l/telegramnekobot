@@ -9,8 +9,8 @@ public enum CommandType {
     ADD_ROLE_COMMAND("addrole", "добавляет роль пользователю", false),
     REMOVE_ROLE_COMMAND("removerole", "удаляет роль пользователя", false),
     GET_ADMIN_LIST_COMMAND("adminslist", "показывает список администраторов", false),
-    SET_NSFW_MODE_COMMAND("setnsfwmode", "изменяет возможность просмотра NSFW контента", false),
-    BLOCK_NSFW_CONTENT_COMMAND("bloknsfwcontent", "глобальная настройка NSFW контента", false);
+    SET_NSFW_MODE_COMMAND("setnsfwmode", "изменяет возможность просмотра NSFW контента", true),
+    BLOCK_NSFW_CONTENT_COMMAND("bloknsfwcontent", "глобальная настройка NSFW контента", true);
 
 
     private String commandName;
