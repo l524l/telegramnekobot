@@ -34,7 +34,8 @@ public class Picture extends Command {
         URL imgUrl = nekosApi.execute(category);
 
         ArrayList<InlineKeyboardButton> arrayList = new ArrayList<>();
-        arrayList.add(InlineKeyboardButton.builder().text("Ещё " + category).callbackData("/another " + category).build());
+        String data = String.format("{\"type\":\"GET_PICTURE_COMMAND\",\"parameters\":[\"%s\"]}",category);
+        arrayList.add(InlineKeyboardButton.builder().text("Ещё " + category).callbackData(data).build());
 
         if (imgUrl.getFile().endsWith(".gif") | imgUrl.getFile().endsWith(".GIF")) {
             SendAnimation sendDocument = SendAnimation.builder()

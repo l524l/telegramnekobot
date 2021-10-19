@@ -41,7 +41,8 @@ public class Categories extends Command {
                 .build();
 
         ArrayList<InlineKeyboardButton> arrayList = new ArrayList<>();
-        arrayList.add(InlineKeyboardButton.builder().text("→").callbackData("/showcategory NSFW").build());
+        String data = "{\"type\":\"SCROLL_CATEGORY\",\"parameters\":[\"nsfw\"]}";
+        arrayList.add(InlineKeyboardButton.builder().text("→").callbackData(data).build());
         sendMessage.setReplyMarkup(InlineKeyboardMarkup.builder().keyboardRow(arrayList).build());
 
         telegramSender.execute(sendMessage);

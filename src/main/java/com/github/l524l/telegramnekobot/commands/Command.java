@@ -20,7 +20,7 @@ public abstract class Command implements Validation {
     public void setContext(BotUser executor, Message message) {
         this.executor = executor;
         this.message = message;
-        this.parameters = getParams();
+        this.parameters = parsParameters();
     }
 
     public BotUser getExecutor() {
@@ -31,15 +31,29 @@ public abstract class Command implements Validation {
         return message;
     }
 
-    public List<String> getParams() {
-        String text = "";
-        text = message.getText();
-        text = text.replaceFirst("(^/\\S+(\\s+|$))", "");
-        if (text.length() > 0) {
-            return Arrays.asList(text.split("\\s+"));
-        } else {
+    protected List<String> parsParameters() {
+        try {
+            String text = "";
+            text = message.getText();
+            text = text.replaceFirst("(^/\\S+(\\s+|$))", "");
+            if (text.length() > 0) {
+                return Arrays.asList(text.split("\\s+"));
+            } else {
+                return Collections.emptyList();
+            }
+
+        }catch (NullPointerException e){
             return Collections.emptyList();
         }
+
+    }
+
+    public List<String> getParams() {
+        return parameters;
+    }
+
+    public void setParameters(List<String> parameters) {
+        this.parameters = parameters;
     }
 
     @Override
