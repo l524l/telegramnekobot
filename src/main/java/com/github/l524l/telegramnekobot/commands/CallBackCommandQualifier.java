@@ -27,8 +27,7 @@ public class CallBackCommandQualifier implements NewCallbackObserver {
         CallbackData callbackData = gson.fromJson(callback.getData(), CallbackData.class);
 
         Command command = commandFactory.createCommand(callbackData.getType());
-        command.setContext(botUser, callback.getMessage());
-        command.setParameters(callbackData.getParameters());
+        command.setParameters(callbackData.getParameter());
 
         try {
             telegramSender.execute(AnswerCallbackQuery.builder().callbackQueryId(callback.getId()).build());

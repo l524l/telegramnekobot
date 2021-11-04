@@ -1,0 +1,8 @@
+{
+  "keyboard":[
+    [{"text":"\uD83D\uDD1E 18+ контент"}],
+    [{"text":"\uD83D\uDD19 Назад"}]
+  ],
+  "resizeKeyboard":true,
+  "inputFieldPlaceholder":"Настройки"
+}

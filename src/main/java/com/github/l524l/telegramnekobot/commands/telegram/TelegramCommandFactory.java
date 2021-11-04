@@ -2,10 +2,11 @@ package com.github.l524l.telegramnekobot.commands.telegram;
 
 import com.github.l524l.telegramnekobot.commands.Command;
 import com.github.l524l.telegramnekobot.commands.CommandFactory;
-import com.github.l524l.telegramnekobot.commands.CommandType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class TelegramCommandFactory extends CommandFactory {
@@ -18,7 +19,14 @@ public class TelegramCommandFactory extends CommandFactory {
     }
 
     @Override
-    public Command createCommand(CommandType type) {
-        return (Command) applicationContext.getBean(type.name());
+    public Command createCommand(String type) {
+        Map<String, Command> map = applicationContext.getBeansOfType(Command.class);
+
+        for (Map.Entry<String,Command> entry: map.entrySet()) {
+            Command var = entry.getValue();
+
+            if (var.getName().equals(type) || var.getAliases().contains(type)) return entry.getValue();
+        }
+        throw new RuntimeException();
     }
 }

@@ -1,0 +1,10 @@
+{
+  "keyboard":[
+    [
+      {
+        "text":"%s",
+        "callbackData":"{}"
+      }
+    ]
+  ]
+}

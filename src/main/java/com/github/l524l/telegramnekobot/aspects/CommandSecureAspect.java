@@ -41,8 +41,8 @@ public class CommandSecureAspect {
                                                 .getAnnotation(SecureCommand.class)
                                                 .authorities();
 
-        BotUser user = command.getExecutor();
-        Message message = command.getMessage();
+        BotUser user = command.getContext().getBotUser();
+        Message message = command.getContext().getUpdate().getMessage();
 
         for (UserRole role :
                 requiredAuthorities) {

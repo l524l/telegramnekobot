@@ -1,17 +1,15 @@
 package com.github.l524l.telegramnekobot.commands;
 
-import java.util.List;
-
 public class CallbackData {
 
-    private CommandType type;
-    private List<String> parameters;
+    private String type;
+    private String parameter;
 
-    public CommandType getType() {
+    public String getType() {
         return type;
     }
 
-    public List<String> getParameters() {
-        return parameters;
+    public String getParameter() {
+        return parameter;
     }
 }

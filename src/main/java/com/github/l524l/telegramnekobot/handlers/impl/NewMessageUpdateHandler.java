@@ -1,5 +1,6 @@
 package com.github.l524l.telegramnekobot.handlers.impl;
 
+import com.github.l524l.telegramnekobot.handlers.RequestContext;
 import com.github.l524l.telegramnekobot.handlers.UpdateHandler;
 import com.github.l524l.telegramnekobot.observers.NewMessageObserver;
 import com.github.l524l.telegramnekobot.observers.NewMessageSubject;
@@ -17,9 +18,11 @@ public class NewMessageUpdateHandler extends UpdateHandler implements NewMessage
 
     private final List<NewMessageObserver> observers;
     private final UserRepository userRepository;
+    private final RequestContext context;
 
-    public NewMessageUpdateHandler(UserRepository userRepository) {
+    public NewMessageUpdateHandler(UserRepository userRepository, RequestContext context) {
         this.userRepository = userRepository;
+        this.context = context;
         this.observers = new ArrayList<>();
     }
 
@@ -27,8 +30,7 @@ public class NewMessageUpdateHandler extends UpdateHandler implements NewMessage
     public String handleRequest(Update update) {
         if (update.hasMessage()) {
             Message message = update.getMessage();
-            BotUser currentUser = userRepository.findById(message.getFrom().getId()).orElseThrow(RuntimeException::new);
-            notifyObservers(currentUser, message);
+            notifyObservers(context.getBotUser(), message);
         }
         return handleByNextHandler(update);
     }

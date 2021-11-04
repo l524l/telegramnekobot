@@ -1,0 +1,16 @@
+{
+  "keyboard": [
+    [
+      {
+        "text":"Вкл.",
+        "callbackData":"{\"type\":\"picture\",\"parameter\":\"%s\"}"
+      }
+    ],
+    [
+      {
+        "text":"✅ Выкл.",
+        "callbackData":"{\"type\":\"picture\",\"parameter\":\"%s\"}"
+      }
+    ]
+  ]
+}

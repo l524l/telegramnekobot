@@ -1,0 +1,14 @@
+{
+  "keyboard": [
+    [
+      {
+        "text":"Ещё",
+        "callbackData":"{\"type\":\"picture\",\"parameter\":\"%s\"}"
+      },
+      {
+        "text":"Другое",
+        "switchInlineQueryCurrentChat":"picture"
+      }
+    ]
+  ]
+}

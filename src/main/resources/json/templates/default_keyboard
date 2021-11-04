@@ -1,0 +1,8 @@
+{
+  "keyboard":[
+    [{"text":"📝 Выбрать категорию"}],
+    [{"text":"⚙ Настройки"}]
+  ],
+  "resizeKeyboard":true,
+  "inputFieldPlaceholder":"Меню"
+}

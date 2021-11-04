@@ -14,12 +14,10 @@ import java.util.regex.Pattern;
 public class CommandQualifier implements NewMessageObserver {
 
     private final TelegramCommandFactory commandFactory;
-    private final Pattern pattern;
 
     @Autowired
     public CommandQualifier(TelegramCommandFactory commandFactory) {
         this.commandFactory = commandFactory;
-        pattern = Pattern.compile("(?<=^/)\\S+(?=\\s|$)");
     }
 
     @Override
@@ -28,28 +26,15 @@ public class CommandQualifier implements NewMessageObserver {
 
         if (messageText.equals("")) return;
 
-        CommandType type = parseCommandType(messageText);
+        Command command = commandFactory.createCommand(message.getText());
 
-        Command command = commandFactory.createCommand(type);
-        command.setContext(user, message);
+        if (message.hasReplyMarkup())
+            command.setParameters(message.getReplyMarkup().getKeyboard().get(0).get(0).getText());
 
         try {
             command.execute();
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
-    }
-
-    public CommandType parseCommandType(String string){
-        String command = "";
-        try {
-            Matcher matcher = pattern.matcher(string);
-
-            matcher.find();
-            command = matcher.group();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return CommandType.getByCommandName(command);
     }
 }

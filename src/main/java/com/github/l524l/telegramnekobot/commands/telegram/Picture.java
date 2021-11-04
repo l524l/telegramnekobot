@@ -2,64 +2,91 @@ package com.github.l524l.telegramnekobot.commands.telegram;
 
 import com.github.l524l.telegramnekobot.annotations.BotCommand;
 import com.github.l524l.telegramnekobot.commands.Command;
-import com.github.l524l.telegramnekobot.exceptions.ValidationException;
 import com.github.l524l.telegramnekobot.nekosapi.NekosApi;
 import com.github.l524l.telegramnekobot.telegram.TelegramSender;
+import com.github.l524l.telegramnekobot.template.KeyboardTemplate;
+import com.github.l524l.telegramnekobot.template.KeyboardTemplatesStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.methods.send.SendAnimation;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Set;
 
-@BotCommand("GET_PICTURE_COMMAND")
+@BotCommand
 public class Picture extends Command {
 
     private final TelegramSender telegramSender;
     private final NekosApi nekosApi;
+    private final KeyboardTemplate template;
 
     @Autowired
-    public Picture(TelegramSender telegramSender, NekosApi nekosApi) {
+    public Picture(TelegramSender telegramSender, NekosApi nekosApi, KeyboardTemplatesStore templates) {
         this.telegramSender = telegramSender;
         this.nekosApi = nekosApi;
+        this.template = templates.getTemplate("picture_keyboard");
     }
 
     @Override
     public void execute() throws Exception {
-        String category = parameters.get(0);
 
-        URL imgUrl = nekosApi.execute(category);
+        URL imgUrl = nekosApi.execute(parameter);
+        InputFile photoFile = new InputFile(imgUrl.toString());
 
-        ArrayList<InlineKeyboardButton> arrayList = new ArrayList<>();
-        String data = String.format("{\"type\":\"GET_PICTURE_COMMAND\",\"parameters\":[\"%s\"]}",category);
-        arrayList.add(InlineKeyboardButton.builder().text("Ещё " + category).callbackData(data).build());
+        String caption = String.format("*%s*", parameter);
+        String parseMode = "MarkdownV2";
 
-        if (imgUrl.getFile().endsWith(".gif") | imgUrl.getFile().endsWith(".GIF")) {
+        template.fillTemplate(parameter);
+
+        ReplyKeyboard keyboard = template.getAsKeyboard(InlineKeyboardMarkup.class);
+
+        
+        String userID = String.valueOf(context.getBotUser().getId());
+
+        if (imgUrl.getFile().toLowerCase().endsWith(".gif")) {
             SendAnimation sendDocument = SendAnimation.builder()
-                    .chatId(message.getChatId().toString())
-                    .animation(new InputFile(imgUrl.toString()))
+                    .chatId(userID)
+                    .animation(photoFile)
+                    .parseMode(parseMode)
+                    .caption(caption)
+                    .replyMarkup(keyboard)
                     .build();
-            sendDocument.setReplyMarkup(InlineKeyboardMarkup.builder().keyboardRow(arrayList).build());
             telegramSender.execute(sendDocument);
         } else {
             SendPhoto sendPhoto = SendPhoto.builder()
-                    .chatId(message.getChatId().toString())
-                    .photo(new InputFile(imgUrl.toString()))
+                    .chatId(userID)
+                    .photo(photoFile)
+                    .parseMode(parseMode)
+                    .caption(caption)
+                    .replyMarkup(keyboard)
                     .build();
-            sendPhoto.setReplyMarkup(InlineKeyboardMarkup.builder().keyboardRow(arrayList).build());
             telegramSender.execute(sendPhoto);
         }
 
+        template.clearTemplate();
     }
 
     @Override
-    public void validate() throws ValidationException {
-        super.validate();
+    public String getName() {
+        return "picture";
+    }
 
-        if (parameters.size() != 1)
-            throw new ValidationException("Ожидался параметр:\n/picture {category}\n/categories - для отображения категорий");
+    @Override
+    public String getDescription() {
+        return "отправляет картинку согласно категории";
+    }
+
+    @Override
+    public boolean isHidden() {
+        return true;
+    }
+
+    @Override
+    public Set<String> getAliases() {
+        return Collections.emptySet();
     }
 }

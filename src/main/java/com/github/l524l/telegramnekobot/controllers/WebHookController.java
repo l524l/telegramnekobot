@@ -17,7 +17,12 @@ public class WebHookController {
 
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public @ResponseBody Object getWebHooks(@RequestBody Update update){
-        return updateHandler.handleRequest(update);
+        try {
+            return updateHandler.handleRequest(update);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ок";
+        }
     }
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public @ResponseBody Object getWebHooks(){

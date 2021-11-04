@@ -1,63 +1,45 @@
 package com.github.l524l.telegramnekobot.commands;
 
-import com.github.l524l.telegramnekobot.exceptions.ValidationException;
+import com.github.l524l.telegramnekobot.handlers.RequestContext;
 import com.github.l524l.telegramnekobot.user.BotUser;
-import com.github.l524l.telegramnekobot.validation.Validation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
-public abstract class Command implements Validation {
+public abstract class Command {
 
-    protected BotUser executor;
-    protected Message message;
-    protected List<String> parameters;
+    protected String parameter;
+    protected RequestContext context;
 
     public abstract void execute() throws Exception;
 
-    public void setContext(BotUser executor, Message message) {
-        this.executor = executor;
-        this.message = message;
-        this.parameters = parsParameters();
+    @Autowired
+    public void setContext(RequestContext context) {
+        this.context = context;
     }
 
-    public BotUser getExecutor() {
-        return executor;
+    public RequestContext getContext() {
+        return context;
     }
 
-    public Message getMessage() {
-        return message;
+    public String getParameter() {
+        return parameter;
     }
 
-    protected List<String> parsParameters() {
-        try {
-            String text = "";
-            text = message.getText();
-            text = text.replaceFirst("(^/\\S+(\\s+|$))", "");
-            if (text.length() > 0) {
-                return Arrays.asList(text.split("\\s+"));
-            } else {
-                return Collections.emptyList();
-            }
-
-        }catch (NullPointerException e){
-            return Collections.emptyList();
-        }
-
+    public void setParameters(String parameter) {
+        this.parameter = parameter;
     }
 
-    public List<String> getParams() {
-        return parameters;
-    }
+    abstract public String getName();
 
-    public void setParameters(List<String> parameters) {
-        this.parameters = parameters;
-    }
+    abstract public String getDescription();
 
-    @Override
-    public void validate() throws ValidationException {
-        if (executor == null | message == null) throw new ValidationException("Контекст команды пуст или не полон");
-    }
+    abstract public boolean isHidden();
+
+    abstract public Set<String> getAliases();
+
 }

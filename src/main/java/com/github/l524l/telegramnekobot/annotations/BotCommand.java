@@ -12,6 +12,4 @@ import java.lang.annotation.*;
 @Component
 @Scope(scopeName = "prototype")
 public @interface BotCommand {
-    @AliasFor(annotation = Component.class)
-    String value();
 }
