@@ -3,13 +3,13 @@
     [
       {
         "text":"Вкл.",
-        "callbackData":"{\"type\":\"picture\",\"parameter\":\"%s\"}"
+        "callbackData":"{\"type\":\"nsfw_on\"}"
       }
     ],
     [
       {
         "text":"✅ Выкл.",
-        "callbackData":"{\"type\":\"picture\",\"parameter\":\"%s\"}"
+        "callbackData":"{\"type\":\"nsfw_off\"}"
       }
     ]
   ]

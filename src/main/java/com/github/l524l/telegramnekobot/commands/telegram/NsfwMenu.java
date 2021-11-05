@@ -14,19 +14,26 @@ import java.util.Set;
 @BotCommand
 public class NsfwMenu extends Command {
     private final TelegramSender telegramSender;
-    private final KeyboardTemplate template;
+    private final KeyboardTemplate templateOn;
+    private final KeyboardTemplate templateOff;
 
     public NsfwMenu(TelegramSender telegramSender, KeyboardTemplatesStore templates) {
         this.telegramSender = telegramSender;
-        this.template = templates.getTemplate("nsfw_off");
+        this.templateOn = templates.getTemplate("nsfw_on");
+        this.templateOff = templates.getTemplate("nsfw_off");
     }
 
     @Override
     public void execute() throws Exception {
         SendMessage.SendMessageBuilder sendMessageBuilder = SendMessage.builder()
                 .chatId(String.valueOf(context.getBotUser().getId()))
-                .text("18+ контент:")
-                .replyMarkup(template.getAsKeyboard(InlineKeyboardMarkup.class));
+                .text("18+ контент:");
+
+        if (context.getBotUser().getUserSettings().isNSFW()) {
+            sendMessageBuilder.replyMarkup(templateOn.getAsKeyboard(InlineKeyboardMarkup.class));
+        } else {
+            sendMessageBuilder.replyMarkup(templateOff.getAsKeyboard(InlineKeyboardMarkup.class));
+        }
 
         telegramSender.execute(sendMessageBuilder.build());
     }
