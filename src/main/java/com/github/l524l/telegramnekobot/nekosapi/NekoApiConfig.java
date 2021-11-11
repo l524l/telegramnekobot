@@ -4,10 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.l524l.telegramnekobot.exceptions.BotException;
 import com.github.l524l.telegramnekobot.nekosapi.impl.NekosFunApi;
+import com.github.l524l.telegramnekobot.nekosapi.impl.NekosLifeApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
@@ -22,6 +24,19 @@ public class NekoApiConfig {
         try {
             ClassPathResource urlResource = new ClassPathResource("json/api/nekocategories.json");
             NekosFunApi nekosFunApi = objectMapper.readValue(urlResource.getInputStream(), new TypeReference<NekosFunApi>() {});
+            return nekosFunApi;
+        } catch (IOException e) {
+            throw new BotException("Fail loading categories file", e);
+        }
+    }
+
+    @Bean
+    @Primary
+    public NekosApi createNekosLifeApi() throws BotException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            ClassPathResource urlResource = new ClassPathResource("json/api/nekos_life_categories.json");
+            NekosLifeApi nekosFunApi = objectMapper.readValue(urlResource.getInputStream(), new TypeReference<NekosLifeApi>() {});
             return nekosFunApi;
         } catch (IOException e) {
             throw new BotException("Fail loading categories file", e);
