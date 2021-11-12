@@ -40,34 +40,40 @@ public class Picture extends Command {
         String caption = String.format("*%s*", parameter);
         String parseMode = "MarkdownV2";
 
-        template.fillTemplate(parameter);
+        String anotherCategory = context.getBotUser().getUserSettings().isNSFW() ? "pictureNsfw": "pictureSfw";
+
+        template.fillTemplate(parameter, anotherCategory);
 
         ReplyKeyboard keyboard = template.getAsKeyboard(InlineKeyboardMarkup.class);
 
         
         String userID = String.valueOf(context.getBotUser().getId());
 
-        if (imgUrl.getFile().toLowerCase().endsWith(".gif")) {
-            SendAnimation sendDocument = SendAnimation.builder()
-                    .chatId(userID)
-                    .animation(photoFile)
-                    .parseMode(parseMode)
-                    .caption(caption)
-                    .replyMarkup(keyboard)
-                    .build();
-            telegramSender.execute(sendDocument);
-        } else {
-            SendPhoto sendPhoto = SendPhoto.builder()
-                    .chatId(userID)
-                    .photo(photoFile)
-                    .parseMode(parseMode)
-                    .caption(caption)
-                    .replyMarkup(keyboard)
-                    .build();
-            telegramSender.execute(sendPhoto);
+        try {
+            if (imgUrl.getFile().toLowerCase().endsWith(".gif")) {
+                SendAnimation sendDocument = SendAnimation.builder()
+                        .chatId(userID)
+                        .animation(photoFile)
+                        .parseMode(parseMode)
+                        .caption(caption)
+                        .replyMarkup(keyboard)
+                        .build();
+                telegramSender.execute(sendDocument);
+            } else {
+                SendPhoto sendPhoto = SendPhoto.builder()
+                        .chatId(userID)
+                        .photo(photoFile)
+                        .parseMode(parseMode)
+                        .caption(caption)
+                        .replyMarkup(keyboard)
+                        .build();
+                telegramSender.execute(sendPhoto);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            template.clearTemplate();
         }
-
-        template.clearTemplate();
     }
 
     @Override

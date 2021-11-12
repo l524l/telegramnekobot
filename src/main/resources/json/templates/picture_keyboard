@@ -6,8 +6,8 @@
         "callbackData":"{\"type\":\"picture\",\"parameter\":\"%s\"}"
       },
       {
-        "text":"Другое",
-        "switchInlineQueryCurrentChat":"picture"
+        "text":"Сменить",
+        "callbackData":"{\"type\":\"categories\"}"
       }
     ]
   ]
