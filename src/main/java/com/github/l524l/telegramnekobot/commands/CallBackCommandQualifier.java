@@ -5,6 +5,7 @@ import com.github.l524l.telegramnekobot.observers.NewCallbackObserver;
 import com.github.l524l.telegramnekobot.telegram.TelegramSender;
 import com.github.l524l.telegramnekobot.user.BotUser;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.AnswerCallbackQuery;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -16,7 +17,9 @@ public class CallBackCommandQualifier implements NewCallbackObserver {
     private final TelegramSender telegramSender;
     private final Gson gson;
 
-    public CallBackCommandQualifier(TelegramCommandFactory commandFactory, TelegramSender telegramSender, Gson gson) {
+    public CallBackCommandQualifier(@Qualifier("TGFactory") TelegramCommandFactory commandFactory,
+                                    TelegramSender telegramSender,
+                                    Gson gson) {
         this.commandFactory = commandFactory;
         this.telegramSender = telegramSender;
         this.gson = gson;
@@ -26,10 +29,10 @@ public class CallBackCommandQualifier implements NewCallbackObserver {
     public void onNewCallback(BotUser botUser, CallbackQuery callback) {
         CallbackData callbackData = gson.fromJson(callback.getData(), CallbackData.class);
 
-        Command command = commandFactory.createCommand(callbackData.getType());
-        command.setParameters(callbackData.getParameter());
-
         try {
+            Command command = commandFactory.createCommand(callbackData.getType());
+            command.setParameters(callbackData.getParameter());
+
             telegramSender.execute(AnswerCallbackQuery.builder().callbackQueryId(callback.getId()).build());
 
             command.execute();

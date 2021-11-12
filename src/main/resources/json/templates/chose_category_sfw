@@ -1,0 +1,10 @@
+{
+  "keyboard":[
+    [
+      {
+        "text":"Выбрать sfw",
+        "switchInlineQueryCurrentChat":"pictureSfw"
+      }
+    ]
+  ]
+}

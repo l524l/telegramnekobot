@@ -17,12 +17,14 @@ import java.util.Set;
 public class Categories extends Command {
 
     private final TelegramSender telegramSender;
-    private final KeyboardTemplate template;
+    private final KeyboardTemplate template_sfw;
+    private final KeyboardTemplate template_nsfw;
 
     @Autowired
     public Categories(TelegramSender telegramSender, KeyboardTemplatesStore templates) {
         this.telegramSender = telegramSender;
-        this.template = templates.getTemplate("chose_category");
+        this.template_sfw = templates.getTemplate("chose_category_sfw");
+        this.template_nsfw = templates.getTemplate("chose_category_nsfw");
     }
 
     @Override
@@ -32,7 +34,11 @@ public class Categories extends Command {
                 .chatId(String.valueOf(context.getBotUser().getId()))
                 .text("Ты можешь выбрать категорию");
 
-        sendMessageBuilder.replyMarkup(template.getAsKeyboard(InlineKeyboardMarkup.class));
+        if (context.getBotUser().getUserSettings().isNSFW()) {
+            sendMessageBuilder.replyMarkup(template_nsfw.getAsKeyboard(InlineKeyboardMarkup.class));
+        }else {
+            sendMessageBuilder.replyMarkup(template_sfw.getAsKeyboard(InlineKeyboardMarkup.class));
+        }
 
         telegramSender.execute(sendMessageBuilder.build());
     }

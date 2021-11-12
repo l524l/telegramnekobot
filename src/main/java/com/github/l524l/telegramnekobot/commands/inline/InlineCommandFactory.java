@@ -1,4 +1,4 @@
-package com.github.l524l.telegramnekobot.commands.telegram;
+package com.github.l524l.telegramnekobot.commands.inline;
 
 import com.github.l524l.telegramnekobot.commands.Command;
 import com.github.l524l.telegramnekobot.commands.CommandFactory;
@@ -9,21 +9,21 @@ import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
-@Component("TGFactory")
-public class TelegramCommandFactory extends CommandFactory {
+@Component
+public class InlineCommandFactory extends CommandFactory {
 
     private final ApplicationContext applicationContext;
 
     @Autowired
-    public TelegramCommandFactory(ApplicationContext applicationContext) {
+    public InlineCommandFactory(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
     @Override
     public Command createCommand(String type) throws CommandNotFindException {
-        Map<String, Command> map = applicationContext.getBeansOfType(Command.class);
+        Map<String, InlineCommand> map = applicationContext.getBeansOfType(InlineCommand.class);
 
-        for (Map.Entry<String,Command> entry: map.entrySet()) {
+        for (Map.Entry<String, InlineCommand> entry: map.entrySet()) {
             Command var = entry.getValue();
 
             if (var.getName().equals(type) || var.getAliases().contains(type)) return entry.getValue();

@@ -37,7 +37,7 @@ public class Start extends Command {
         SendMessage message2 = SendMessage.builder()
                 .chatId(userID)
                 .text("Ты можешь выбрать категорию")
-                .replyMarkup(templates.getTemplate("chose_category").getAsKeyboard(InlineKeyboardMarkup.class))
+                .replyMarkup(templates.getTemplate("chose_category_sfw").getAsKeyboard(InlineKeyboardMarkup.class))
                 .build();
 
         telegramSender.execute(message1);

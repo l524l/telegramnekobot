@@ -1,0 +1,14 @@
+{
+  "keyboard":[
+    [
+      {
+        "text":"Выбрать sfw",
+        "switchInlineQueryCurrentChat":"pictureSfw"
+      },
+      {
+        "text":"Выбрать nsfw",
+        "switchInlineQueryCurrentChat":"pictureNsfw"
+      }
+    ]
+  ]
+}

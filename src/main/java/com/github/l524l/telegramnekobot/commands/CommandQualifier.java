@@ -1,9 +1,11 @@
 package com.github.l524l.telegramnekobot.commands;
 
 import com.github.l524l.telegramnekobot.commands.telegram.TelegramCommandFactory;
+import com.github.l524l.telegramnekobot.exceptions.CommandNotFindException;
 import com.github.l524l.telegramnekobot.observers.NewMessageObserver;
 import com.github.l524l.telegramnekobot.user.BotUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
@@ -16,7 +18,7 @@ public class CommandQualifier implements NewMessageObserver {
     private final TelegramCommandFactory commandFactory;
 
     @Autowired
-    public CommandQualifier(TelegramCommandFactory commandFactory) {
+    public CommandQualifier(@Qualifier("TGFactory") TelegramCommandFactory commandFactory) {
         this.commandFactory = commandFactory;
     }
 
@@ -26,14 +28,15 @@ public class CommandQualifier implements NewMessageObserver {
 
         if (messageText.equals("")) return;
 
-        Command command = commandFactory.createCommand(message.getText());
-
-        if (message.hasReplyMarkup())
-            command.setParameters(message.getReplyMarkup().getKeyboard().get(0).get(0).getText());
-
         try {
+            Command command = commandFactory.createCommand(message.getText());
+
+            if (message.hasReplyMarkup()) {
+                command.setParameters(message.getReplyMarkup().getKeyboard().get(0).get(0).getText());
+            }
+
             command.execute();
-        } catch (Throwable throwable) {
+        } catch (Exception throwable) {
             throwable.printStackTrace();
         }
     }
