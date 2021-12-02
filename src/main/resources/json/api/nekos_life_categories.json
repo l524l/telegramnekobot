@@ -63,7 +63,7 @@
     },
     {
       "name": "holo",
-      "nsfw": true
+      "nsfw": false
     },
     {
       "name": "poke",
@@ -71,10 +71,6 @@
     },
     {
       "name": "feed",
-      "nsfw": false
-    },
-    {
-      "name": "fox_girl",
       "nsfw": false
     },
     {
@@ -132,12 +128,6 @@
       "name": "hug",
       "nsfw": false
     },{
-      "name": "cum_jpg",
-      "nsfw": true
-    },{
-      "name": "nsfw_avatar",
-      "nsfw": true
-    },{
       "name": "erofeet",
       "nsfw": true
     },{
@@ -175,7 +165,7 @@
     },
     {
       "name": "ngif",
-      "nsfw": true
+      "nsfw": false
     },{
       "name": "kemonomimi",
       "nsfw": false
